@@ -1,0 +1,52 @@
+import UIKit
+
+let image = UIImage(named: "rgb.png")!
+var avgRed:Double = 0
+var avgBlue:Double = 0
+var avgGreen:Double = 0
+
+guard let cgImage = image.cgImage, let data = cgImage.dataProvider?.data, let bytes = CFDataGetBytePtr(data) else {
+    fatalError("Couldn't access image data")
+}
+assert(cgImage.colorSpace?.model == .rgb)
+
+let bytesPerPixel = cgImage.bitsPerPixel / cgImage.bitsPerComponent
+// These determine what pixels will be included
+// from startHeight to imgHeight, startWidth to imgWidth
+// so, startHeight < imgHeight and startWidth < imgWidth
+let startHeight = 0
+let startWidth = 0
+let imgHeight = cgImage.height
+let imgWidth = cgImage.width
+            
+// Gives the total number of pixels being analyzed; this is used to find the average values later in the code.
+let numPixels:Int = ((imgHeight - startHeight) * (imgWidth - startWidth))
+print("Number of Pixels: \(numPixels)")
+var blackPixels:Int = 0
+
+// The specific pixels included can be changed by adjusting the variables imgHeight & imgWidth as well as startHeight and startWidth
+for y in startHeight ..< imgHeight {
+    for x in startWidth ..< imgWidth {
+        let offset = (y * cgImage.bytesPerRow) + (x * bytesPerPixel)
+        //let components = (r: bytes[offset], g: bytes[offset + 1], b: bytes[offset + 2])
+        if (Double(bytes[offset]) > 60 && Double(bytes[offset + 1]) > 60 && Double(bytes[offset + 2]) > 60) {
+            avgRed = (Double(bytes[offset]) + avgRed)
+            avgGreen = (Double(bytes[offset + 1]) + avgGreen)
+            avgBlue = (Double(bytes[offset + 2]) + avgBlue)
+        } else {
+            blackPixels += 1
+        }
+        // print("[x:\(x), y:\(y)] \(components)")
+    }
+    // print("---")
+}
+
+numPixels -= blackPixels
+avgRed = avgRed / Double(numPixels)
+avgGreen = avgGreen / Double(numPixels)
+avgBlue = avgBlue / Double(numPixels)
+
+print("========")
+print("Average Red: \(avgRed)")
+print("Average Green: \(avgGreen)")
+print("Average Blue: \(avgBlue)")

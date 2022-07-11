@@ -1,0 +1,444 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 55;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		010392C7285CC45100908984 /* AnalyzeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010392C6285CC45100908984 /* AnalyzeView.swift */; };
+		010CE268285CFB690076C97E /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010CE267285CFB680076C97E /* CameraView.swift */; };
+		010CE26A285D08110076C97E /* PastTestsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010CE269285D08110076C97E /* PastTestsView.swift */; };
+		010ECF342878C1B500667FA4 /* Detect.mm in Sources */ = {isa = PBXBuildFile; fileRef = 010ECF332878C1B500667FA4 /* Detect.mm */; };
+		01274EBE2858FBA600B9916B /* Summer_Research_Project_2022App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01274EBD2858FBA500B9916B /* Summer_Research_Project_2022App.swift */; };
+		01274EC02858FBA600B9916B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01274EBF2858FBA600B9916B /* ContentView.swift */; };
+		01274EC22858FBC900B9916B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 01274EC12858FBC900B9916B /* Assets.xcassets */; };
+		01274EC52858FBC900B9916B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 01274EC42858FBC900B9916B /* Preview Assets.xcassets */; };
+		0197092B28623C7F0014F6BC /* analyzePixels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0197092A28623C7F0014F6BC /* analyzePixels.swift */; };
+		019A9EEA2875D4F300B1DD15 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 019A9EE92875D4F300B1DD15 /* CoreMedia.framework */; };
+		019A9F2B2877182600B1DD15 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 019A9F2A2877182600B1DD15 /* Accelerate.framework */; };
+		019A9F2D2877182C00B1DD15 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 019A9F2C2877182C00B1DD15 /* CoreGraphics.framework */; };
+		019A9F2F2877183B00B1DD15 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 019A9F2E2877183B00B1DD15 /* CoreImage.framework */; };
+		019A9F312877184A00B1DD15 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 019A9F302877184A00B1DD15 /* CoreFoundation.framework */; };
+		019A9F3828771CA500B1DD15 /* SwiftUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019A9F3728771CA500B1DD15 /* SwiftUIView.swift */; };
+		019E1E6B2863575E004F9062 /* CroppedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019E1E6A2863575E004F9062 /* CroppedView.swift */; };
+		01BB4783287C65B500A30D6E /* DetectEdges.mm in Sources */ = {isa = PBXBuildFile; fileRef = 01BB4781287C65B500A30D6E /* DetectEdges.mm */; };
+		01D203F8285B98DC0030921E /* Property List.plist in Resources */ = {isa = PBXBuildFile; fileRef = 01D203F7285B98DC0030921E /* Property List.plist */; };
+		01D203FC285BB1DF0030921E /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D203FB285BB1DF0030921E /* ImagePicker.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		010392C6285CC45100908984 /* AnalyzeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyzeView.swift; sourceTree = "<group>"; };
+		010CE267285CFB680076C97E /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
+		010CE269285D08110076C97E /* PastTestsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PastTestsView.swift; sourceTree = "<group>"; };
+		010ECF332878C1B500667FA4 /* Detect.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = Detect.mm; sourceTree = "<group>"; };
+		010ECF352878C1E500667FA4 /* DetectEdgesWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetectEdgesWrapper.h; sourceTree = "<group>"; };
+		01274EBA2858FBA500B9916B /* Summer Research Project 2022.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Summer Research Project 2022.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		01274EBD2858FBA500B9916B /* Summer_Research_Project_2022App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Summer_Research_Project_2022App.swift; sourceTree = "<group>"; };
+		01274EBF2858FBA600B9916B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		01274EC12858FBC900B9916B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		01274EC42858FBC900B9916B /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		0197092A28623C7F0014F6BC /* analyzePixels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = analyzePixels.swift; sourceTree = "<group>"; };
+		019A9EE92875D4F300B1DD15 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		019A9F2A2877182600B1DD15 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
+		019A9F2C2877182C00B1DD15 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		019A9F2E2877183B00B1DD15 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
+		019A9F302877184A00B1DD15 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
+		019A9F32287718FE00B1DD15 /* Summer Research Project 2022-Bridging-Header.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; path = "Summer Research Project 2022-Bridging-Header.h"; sourceTree = "<group>"; };
+		019A9F3728771CA500B1DD15 /* SwiftUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIView.swift; sourceTree = "<group>"; };
+		019E1E6A2863575E004F9062 /* CroppedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CroppedView.swift; sourceTree = "<group>"; };
+		01BB4781287C65B500A30D6E /* DetectEdges.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = DetectEdges.mm; sourceTree = "<group>"; };
+		01BB4782287C65B500A30D6E /* DetectEdges.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = DetectEdges.hpp; sourceTree = "<group>"; };
+		01BB4784287C69A800A30D6E /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		01D203F7285B98DC0030921E /* Property List.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Property List.plist"; sourceTree = "<group>"; };
+		01D203FB285BB1DF0030921E /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		01274EB72858FBA500B9916B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				019A9F312877184A00B1DD15 /* CoreFoundation.framework in Frameworks */,
+				019A9F2F2877183B00B1DD15 /* CoreImage.framework in Frameworks */,
+				019A9F2D2877182C00B1DD15 /* CoreGraphics.framework in Frameworks */,
+				019A9F2B2877182600B1DD15 /* Accelerate.framework in Frameworks */,
+				019A9EEA2875D4F300B1DD15 /* CoreMedia.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		01274EB12858FBA500B9916B = {
+			isa = PBXGroup;
+			children = (
+				01BB4784287C69A800A30D6E /* PrefixHeader.pch */,
+				01BB4781287C65B500A30D6E /* DetectEdges.mm */,
+				01BB4782287C65B500A30D6E /* DetectEdges.hpp */,
+				010ECF352878C1E500667FA4 /* DetectEdgesWrapper.h */,
+				010ECF332878C1B500667FA4 /* Detect.mm */,
+				01274EBC2858FBA500B9916B /* Summer Research Project 2022 */,
+				01274EBB2858FBA500B9916B /* Products */,
+				019A9EE82875D4F300B1DD15 /* Frameworks */,
+				019A9F32287718FE00B1DD15 /* Summer Research Project 2022-Bridging-Header.h */,
+			);
+			sourceTree = "<group>";
+		};
+		01274EBB2858FBA500B9916B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				01274EBA2858FBA500B9916B /* Summer Research Project 2022.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		01274EBC2858FBA500B9916B /* Summer Research Project 2022 */ = {
+			isa = PBXGroup;
+			children = (
+				01274EBD2858FBA500B9916B /* Summer_Research_Project_2022App.swift */,
+				01D203FB285BB1DF0030921E /* ImagePicker.swift */,
+				0197092A28623C7F0014F6BC /* analyzePixels.swift */,
+				01274EBF2858FBA600B9916B /* ContentView.swift */,
+				010CE267285CFB680076C97E /* CameraView.swift */,
+				019E1E6A2863575E004F9062 /* CroppedView.swift */,
+				010392C6285CC45100908984 /* AnalyzeView.swift */,
+				010CE269285D08110076C97E /* PastTestsView.swift */,
+				019A9F3728771CA500B1DD15 /* SwiftUIView.swift */,
+				01D203F7285B98DC0030921E /* Property List.plist */,
+				01274EC12858FBC900B9916B /* Assets.xcassets */,
+				01274EC32858FBC900B9916B /* Preview Content */,
+			);
+			path = "Summer Research Project 2022";
+			sourceTree = "<group>";
+		};
+		01274EC32858FBC900B9916B /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				01274EC42858FBC900B9916B /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		019A9EE82875D4F300B1DD15 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				019A9EE92875D4F300B1DD15 /* CoreMedia.framework */,
+				019A9F2C2877182C00B1DD15 /* CoreGraphics.framework */,
+				019A9F2E2877183B00B1DD15 /* CoreImage.framework */,
+				019A9F302877184A00B1DD15 /* CoreFoundation.framework */,
+				019A9F2A2877182600B1DD15 /* Accelerate.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		01274EB92858FBA500B9916B /* Summer Research Project 2022 */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 01274EC82858FBC900B9916B /* Build configuration list for PBXNativeTarget "Summer Research Project 2022" */;
+			buildPhases = (
+				01274EB62858FBA500B9916B /* Sources */,
+				01274EB72858FBA500B9916B /* Frameworks */,
+				01274EB82858FBA500B9916B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Summer Research Project 2022";
+			productName = "Summer Research Project 2022";
+			productReference = 01274EBA2858FBA500B9916B /* Summer Research Project 2022.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		01274EB22858FBA500B9916B /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1340;
+				LastUpgradeCheck = 1340;
+				TargetAttributes = {
+					01274EB92858FBA500B9916B = {
+						CreatedOnToolsVersion = 13.4.1;
+						LastSwiftMigration = 1340;
+					};
+				};
+			};
+			buildConfigurationList = 01274EB52858FBA500B9916B /* Build configuration list for PBXProject "Summer Research Project 2022" */;
+			compatibilityVersion = "Xcode 13.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 01274EB12858FBA500B9916B;
+			productRefGroup = 01274EBB2858FBA500B9916B /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				01274EB92858FBA500B9916B /* Summer Research Project 2022 */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		01274EB82858FBA500B9916B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				01D203F8285B98DC0030921E /* Property List.plist in Resources */,
+				01274EC52858FBC900B9916B /* Preview Assets.xcassets in Resources */,
+				01274EC22858FBC900B9916B /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		01274EB62858FBA500B9916B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				01D203FC285BB1DF0030921E /* ImagePicker.swift in Sources */,
+				01274EC02858FBA600B9916B /* ContentView.swift in Sources */,
+				010392C7285CC45100908984 /* AnalyzeView.swift in Sources */,
+				010CE268285CFB690076C97E /* CameraView.swift in Sources */,
+				019A9F3828771CA500B1DD15 /* SwiftUIView.swift in Sources */,
+				019E1E6B2863575E004F9062 /* CroppedView.swift in Sources */,
+				010CE26A285D08110076C97E /* PastTestsView.swift in Sources */,
+				010ECF342878C1B500667FA4 /* Detect.mm in Sources */,
+				01BB4783287C65B500A30D6E /* DetectEdges.mm in Sources */,
+				01274EBE2858FBA600B9916B /* Summer_Research_Project_2022App.swift in Sources */,
+				0197092B28623C7F0014F6BC /* analyzePixels.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		01274EC62858FBC900B9916B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		01274EC72858FBC900B9916B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		01274EC92858FBC900B9916B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Summer Research Project 2022/Preview Content\"";
+				DEVELOPMENT_TEAM = S8QJCY67WW;
+				ENABLE_PREVIEWS = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "This app requires use of the camera";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = Centre.Summer.2022;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "Summer Research Project 2022-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		01274ECA2858FBC900B9916B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Summer Research Project 2022/Preview Content\"";
+				DEVELOPMENT_TEAM = S8QJCY67WW;
+				ENABLE_PREVIEWS = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "This app requires use of the camera";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = Centre.Summer.2022;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "Summer Research Project 2022-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		01274EB52858FBA500B9916B /* Build configuration list for PBXProject "Summer Research Project 2022" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				01274EC62858FBC900B9916B /* Debug */,
+				01274EC72858FBC900B9916B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		01274EC82858FBC900B9916B /* Build configuration list for PBXNativeTarget "Summer Research Project 2022" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				01274EC92858FBC900B9916B /* Debug */,
+				01274ECA2858FBC900B9916B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 01274EB22858FBA500B9916B /* Project object */;
+}

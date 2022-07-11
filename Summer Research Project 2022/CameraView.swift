@@ -17,6 +17,7 @@ struct CameraView: View {
     //holds the image
     @State private var image: UIImage!
     @State private var edges: UIImage!
+    @State private var readyToContinue: Bool = false
 
     //for the navigation - is true when the image variable holds an image and false otherwise
     private var imageUploaded:Bool {
@@ -57,9 +58,16 @@ struct CameraView: View {
                 }).padding()
                 Button(action: {
                     edges = DetectEdgesWrapper().detectFunction(image)
+                    readyToContinue = true
                 }, label: {
-                    Text("Continue")
+                    Text("Continue               ")
                 })
+                
+                    .padding()
+                    .background(Color.blue)
+                    .foregroundColor(Color.white)
+                    .cornerRadius(20)
+                    //.opacity(imageUploaded ? 1:0)
                 //used to display the view asking if the user would like to use an image from library or use the camera
                 .actionSheet(isPresented: $showSheet) {
                     ActionSheet(title: Text("Select Photo"),
@@ -79,12 +87,8 @@ struct CameraView: View {
                 }
                 Spacer()
 
-                NavigationLink("Continue               ", destination: CroppedView(crop: edges))
-                    .padding()
-                    .background(Color.blue)
-                    .foregroundColor(Color.white)
-                    .cornerRadius(20)
-                    .opacity(imageUploaded ? 1:0)
+                NavigationLink("Continue               ", destination: CroppedView(crop: edges), isActive: $readyToContinue)
+                    .opacity(0)
                 Spacer()
                 
 

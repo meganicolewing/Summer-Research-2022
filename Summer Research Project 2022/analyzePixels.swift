@@ -8,8 +8,10 @@
 import Foundation
 import SwiftUI
 import UIKit
+
 //averages RGB values across image, returns a string containing the average RGB values
-func analyzePixels(_ image: UIImage) -> String {
+//analyzePixels *MUST* be called with '&' before the second parameter!!!!
+func analyzePixels(_ image: UIImage, _ numList: inout [Int]) -> String {
     //acesses image data to process
     guard let cgImage = image.cgImage, let data = cgImage.dataProvider?.data, let bytes = CFDataGetBytePtr(data) else {
         fatalError("Couldn't access image data")
@@ -31,6 +33,7 @@ func analyzePixels(_ image: UIImage) -> String {
     let bytesPerPixel = cgImage.bitsPerPixel / cgImage.bitsPerComponent
 
     //goes through each pixel of the image and adds the RGB values to the appropriate variable
+    //editing the 0..<cgImage.height and 0..<cgImage.width allows you to alter what part of the image will be modified.
     for y in 0 ..< cgImage.height {
         for x in 0 ..< cgImage.width {
             let offset = (y * cgImage.bytesPerRow) + (x * bytesPerPixel)
@@ -48,15 +51,24 @@ func analyzePixels(_ image: UIImage) -> String {
         }
     }
     
+    // Find the average red, blue, and green value for the specified area
     avgRed = avgRed / Double(numPixels)
     avgGreen = avgGreen / Double(numPixels)
     avgBlue = avgBlue / Double(numPixels)
     
+    // Adjust so that the rounding is more accurate
     let red:Int = (Int)(avgRed + 0.5)
     let green:Int = (Int)(avgGreen + 0.5)
     let blue:Int = (Int)(avgBlue + 0.5)
     
+    // Alter the list for the values with those ones calculated in lines 59-61
+    // This lets us have both a string to print AND a list of values for us to access directly
+    numList[0] = red
+    numList[1] = green
+    numList[2] = blue
     
+    
+    // Human-readable string for printig purposes
     rgbValues = "Average Red: \(red)\nAverage Green: \(green)\nAverage Blue: \(blue)\n"
     
     return rgbValues

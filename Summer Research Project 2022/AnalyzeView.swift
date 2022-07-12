@@ -17,6 +17,7 @@ struct AnalyzeView: View {
     
     @State var rgbVals:String = "\n\n\n"
     @State var testDate:String = ""
+    @State var rgbList: [Int] = [0, 0, 0]
     
     func getDate() -> String {
         let dateFormatter = DateFormatter()
@@ -35,7 +36,8 @@ struct AnalyzeView: View {
         VStack {
 
             Button("Get RGB Values", action:  {
-                rgbVals = analyzePixels(analyze)
+                //analyzePixels *MUST* be called with '&' before the second parameter!!!!
+                rgbVals = analyzePixels(analyze, &rgbList)
                 testDate = getDate()
                 pressedRGB = true
             })
@@ -43,7 +45,7 @@ struct AnalyzeView: View {
             .background(Color.blue)
             .foregroundColor(Color.white)
             .cornerRadius(20).opacity(pressedRGB ? 0:1)
-                Text(rgbVals)
+                Text("Average Red: \(rgbList[0])\nAverage Green: \(rgbList[1])\nAverage Blue: \(rgbList[2])\n")
                 .padding()
                 Text(testDate)
                 .padding()

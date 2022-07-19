@@ -25,7 +25,7 @@ struct PastTestsView: View {
                     Text(dates[$0 % dates.count])
                     Text(results[$0 % results.count])
                 }
-            }
+            /*
             
             NavigationLink {
                 ContentView()
@@ -34,9 +34,10 @@ struct PastTestsView: View {
                     .fontWeight(.medium)
                     .foregroundColor(Color.white)
                     .padding(.all)
-                    .background(Color.blue)
+                    .background(Color("Main_Yellow"))
                     .cornerRadius(20)
                     .padding()
+            */
             }
             
         }.padding(.horizontal).padding(.bottom)

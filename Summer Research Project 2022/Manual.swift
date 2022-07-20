@@ -32,7 +32,7 @@ struct Manual: View {
                 Text("screen. To view previous results, navigate to")
                 Text("the \"View Past Tests\" screen.")
                     .padding(.bottom)
-                /*
+                
                 NavigationLink {
                     ContentView()
                 } label: {
@@ -43,7 +43,7 @@ struct Manual: View {
                         .background(Color("Main_Yellow"))
                         .cornerRadius(20)
                         .padding()
-                }*/
+                }
                 Spacer()
             }
         }.navigationBarHidden(true)

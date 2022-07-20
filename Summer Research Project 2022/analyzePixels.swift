@@ -9,8 +9,9 @@ import Foundation
 import SwiftUI
 import UIKit
 
-//averages RGB values across image, returns a string containing the average RGB values
-//analyzePixels *MUST* be called with '&' before the second parameter!!!!
+//averages RGB values across box in image, returns a double containing the average saturation value
+// box - testBox with the coordinates of the corners of a box to be analyzed in image
+//for more notes on the struct testBox, see "TestFinder.swift"
 func analyzePixels(_ image: UIImage, /* _ numList: inout [Int], */ _ box: testBox) -> Double {
     //acesses image data to process
     guard let cgImage = image.cgImage, let data = cgImage.dataProvider?.data, let bytes = CFDataGetBytePtr(data) else {
@@ -30,28 +31,29 @@ func analyzePixels(_ image: UIImage, /* _ numList: inout [Int], */ _ box: testBo
     //string to add the RGB values to once processing is complete
     //var rgbValues = ""
     
+    //ensures the image wil be read as RGB pixels
     assert(cgImage.colorSpace?.model == .rgb)
-
+    //used to parse through the array of image pixels and find RGB values
     let bytesPerPixel = cgImage.bitsPerPixel / cgImage.bitsPerComponent
 
-    //goes through each pixel of the image and adds the RGB values to the appropriate variable
-    //editing the 0..<cgImage.height and 0..<cgImage.width allows you to alter what part of the image will be modified.
+    //goes through each pixel of the image in the box and adds the RGB values to the appropriate variable
     for y in box.yMin ..< box.yMax {
         for x in box.xMin ..< box.xMax {
             let offset = (y * cgImage.bytesPerRow) + (x * bytesPerPixel)
-            //let components = (r: bytes[offset], g: bytes[offset + 1], b: bytes[offset + 2])
+            // find the current RGB values
             currRed = (Double(bytes[offset]))
             currBlue = (Double(bytes[offset + 2]))
             currGreen = (Double(bytes[offset + 1]))
+            // finds the max and min RGB values, then checks them to make sure they are different enough that the pixel isn't grayscle, ensuring that the inside of the test is being picked up, rather than the outline of the test
             currMax = max(currRed, currGreen, currBlue)
             currMin = min(currRed, currGreen, currBlue)
             if (currMax - currMin) > 5 {
+                // adds the values to the average if the the pixel is suitable
                 avgRed = (currRed + avgRed)
                 avgGreen = (currGreen + avgGreen)
                 avgBlue = (currBlue + avgBlue)
                 numPixels += 1
             }
-            //rgbValues = rgbValues + "[x:\(x), y:\(y)] \(components)\n"
         }
     }
     
@@ -60,7 +62,7 @@ func analyzePixels(_ image: UIImage, /* _ numList: inout [Int], */ _ box: testBo
     avgGreen = avgGreen / Double(numPixels)
     avgBlue = avgBlue / Double(numPixels)
     
-    // Adjust so that the rounding is more accurate
+    // rounding
     let red:Int = (Int)(avgRed + 0.5)
     let green:Int = (Int)(avgGreen + 0.5)
     let blue:Int = (Int)(avgBlue + 0.5)
@@ -72,10 +74,12 @@ func analyzePixels(_ image: UIImage, /* _ numList: inout [Int], */ _ box: testBo
     //numList[1] = green
     //numList[2] = blue
     
+    //reduce the RGB values to 0-1
     let rPrime = Double(red)/255
     let gPrime = Double(green)/255
     let bPrime = Double(blue)/255
     
+    //find saturation from reduced RGB values
     let cMax = max(rPrime, gPrime, bPrime)
     let cMin = min(rPrime, gPrime, bPrime)
     let delta = cMax - cMin

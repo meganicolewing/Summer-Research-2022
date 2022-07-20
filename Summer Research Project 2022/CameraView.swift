@@ -67,9 +67,7 @@ struct CameraView: View {
                         .frame(width: 175.0, height: 60.0)
                         .cornerRadius(/*@START_MENU_TOKEN@*/20.0/*@END_MENU_TOKEN@*/)
                 })
-                
-                  
-                    //.opacity(imageUploaded ? 1:0)
+                .opacity(imageUploaded ? 1:0)
                 //used to display the view asking if the user would like to use an image from library or use the camera
                 .actionSheet(isPresented: $showSheet) {
                     ActionSheet(title: Text("Select Photo"),

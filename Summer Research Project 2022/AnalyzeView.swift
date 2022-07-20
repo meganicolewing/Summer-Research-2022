@@ -37,7 +37,7 @@ struct AnalyzeView: View {
 
             Button("Get RGB Values", action:  {
                 //analyzePixels *MUST* be called with '&' before the second parameter!!!!
-                rgbVals = analyzePixels(analyze, &rgbList)
+               // rgbVals = analyzePixels(analyze, &rgbList)
                 testDate = getDate()
                 pressedRGB = true
             })

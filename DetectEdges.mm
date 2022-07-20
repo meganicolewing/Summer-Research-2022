@@ -44,7 +44,7 @@ void CannyThreshold(cv::Mat *gray, cv::Mat *blurred, cv::Mat *edge) {
     
     Canny(*blurred,                  //input
           *edge,                     //output
-          80,                         //lower threshold
+          55,                         //lower threshold
           160);                      //higher threshold
     
 }

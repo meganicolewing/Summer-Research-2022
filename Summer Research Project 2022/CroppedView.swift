@@ -8,12 +8,16 @@
 import SwiftUI
 
 struct CroppedView: View {
-    var crop: UIImage!
+    var testResults: results!
     var body: some View {
-        Image(uiImage: crop ?? UIImage(named: "placeholder")!)
-            .resizable()
-            .aspectRatio(contentMode: .fit)
-            .padding()
+        VStack{
+            Text("Test One Left: \(testResults.test1Left)")
+            Text("Text One Right: \(testResults.test1Right)")
+            Text("Test Two Left: \(testResults.test2Left)")
+            Text("Text Two Right: \(testResults.test2Right)")
+            Text("Test Three Left: \(testResults.test3Left)")
+            Text("Text Three Right: \(testResults.test3Right)")
+        }
     }
 }
 

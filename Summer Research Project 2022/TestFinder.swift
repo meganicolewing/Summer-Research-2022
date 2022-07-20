@@ -41,12 +41,12 @@ struct testBox {
 // holds saturation data about all six bulbs in a test
 struct results {
     // test 1 is the bottom test, while test 3 is the top test
-    var test1Left:Double = -1
-    var test1Right:Double = -1
-    var test2Left:Double = -1
-    var test2Right:Double = -1
-    var test3Left:Double = -1
-    var test3Right:Double = -1
+    var test1Left = -1
+    var test1Right = -1
+    var test2Left = -1
+    var test2Right = -1
+    var test3Left = -1
+    var test3Right = -1
 }
 
 // image - pointer to a UIImage, this should be an image that has been returned from an edge detector and contains only the edges of the test
@@ -158,8 +158,14 @@ func getNewLimits(_ edges: UIImage!, _ image:UIImage!) -> results {
     let nextTopCoordinate = testFinder(edges, startRight, startY, endY)
     print("coordinates: ", topCoordinate, nextTopCoordinate)
     // uses the dimensions of the test to determine how far down to move when searching for the second and third tests
-    let lengthOfTest = abs(topCoordinate[1] - nextTopCoordinate[1])
-    let bulbHeight = Int((Double(lengthOfTest) * (3/7)) + 0.5)
+    // uses the first coordinates found to find the total distance between the bulbs
+    let xDistance = abs(topCoordinate[0] - nextTopCoordinate[0])
+    let yDistance = abs(topCoordinate[1] - nextTopCoordinate[1])
+    //print("xDist : \(xDistance)\nyDist: \(yDistance)")
+    let bulbDistance = sqrt(pow(Double(xDistance), 2) + pow(Double(yDistance), 2))
+    //print("bulbDistance: \(bulbDistance)")
+    //uses the dimensions of the tests to find how long an individual bulb is
+    let bulbHeight = Int((Double(bulbDistance) * (4/7)) + 0.5)
     let avgY = Int((topCoordinate[1] + nextTopCoordinate[1])/2)
     // new y search limits for all three tests, using the numbers caclulated above
     let start1 = avgY - Int(bulbHeight/2)
@@ -180,13 +186,7 @@ func getNewLimits(_ edges: UIImage!, _ image:UIImage!) -> results {
     let test2RightCoordinates = testFinder(edges, true, start2, end2)
     let test3LeftCoordinates = testFinder(edges, false, start3, end3)
     let test3RightCoordinates = testFinder(edges, true, start3, end3)
-    // uses the first coordinates found to find the total distance between the bulbs
-    let xDistance = test1LeftCoordinates[0] - test1RightCoordinates[0]
-    let yDistance = test1LeftCoordinates[1] - test1RightCoordinates[1]
-    //print("xDist : \(xDistance)\nyDist: \(yDistance)")
-    let bulbDistance = sqrt(pow(Double(xDistance), 2) + pow(Double(yDistance), 2))
-    //print("bulbDistance: \(bulbDistance)")
-    //uses the dimensions of the tests to find how long an individual bulb is
+    
     let bigSquare = bulbDistance * 6/19
     //print("bigSquare : \(bigSquare)")
     // finds a quarter of the length of a bulb. used to find a square within each bulb by going in this distance from each side
@@ -201,11 +201,17 @@ func getNewLimits(_ edges: UIImage!, _ image:UIImage!) -> results {
     let test3RightBox = testBox(coords: test3RightCoordinates, radius: squareRadius, left: false)
     // calls the analyzePixels function with the original image and each testBox and stores all the results in a results object to be returned
     var testResults = results()
+    print("top left")
     testResults.test1Left = analyzePixels(image, test1LeftBox)
+    print("top right")
     testResults.test1Right = analyzePixels(image, test1RightBox)
+    print("middle left")
     testResults.test2Left = analyzePixels(image, test2LeftBox)
+    print("middle right")
     testResults.test2Right = analyzePixels(image, test2RightBox)
+    print("bottom left")
     testResults.test3Left = analyzePixels(image, test3LeftBox)
+    print("bottom right")
     testResults.test3Right = analyzePixels(image, test3RightBox)
     return testResults
 }

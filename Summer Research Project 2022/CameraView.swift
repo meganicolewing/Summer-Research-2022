@@ -58,7 +58,7 @@ struct CameraView: View {
                 }).padding()
                 Button(action: {
                     edges = DetectEdgesWrapper().detectFunction(image)
-                    testResults = getNewLimits(edges, image)
+                   // testResults = getNewLimits(edges, image)
                     readyToContinue = true
                 }, label: {
                     Image("Continue")

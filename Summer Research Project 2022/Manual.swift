@@ -46,8 +46,7 @@ struct Manual: View {
                 }*/
                 Spacer()
             }
-        }.navigationBarTitle("")
-            .navigationBarHidden(true)
+        }.navigationBarHidden(true)
     }
 }
 

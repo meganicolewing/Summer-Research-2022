@@ -28,7 +28,6 @@
 		01BB4783287C65B500A30D6E /* DetectEdges.mm in Sources */ = {isa = PBXBuildFile; fileRef = 01BB4781287C65B500A30D6E /* DetectEdges.mm */; };
 		01D203F8285B98DC0030921E /* Property List.plist in Resources */ = {isa = PBXBuildFile; fileRef = 01D203F7285B98DC0030921E /* Property List.plist */; };
 		01D203FC285BB1DF0030921E /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D203FB285BB1DF0030921E /* ImagePicker.swift */; };
-		1D868CF32885EE020064DEFE /* HomePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D868CF22885EE020064DEFE /* HomePage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,7 +57,6 @@
 		01BB4784287C69A800A30D6E /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		01D203F7285B98DC0030921E /* Property List.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Property List.plist"; sourceTree = "<group>"; };
 		01D203FB285BB1DF0030921E /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
-		1D868CF22885EE020064DEFE /* HomePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,7 +106,6 @@
 				0197092A28623C7F0014F6BC /* analyzePixels.swift */,
 				01700AE2287DB12000BC1419 /* TestFinder.swift */,
 				01274EBF2858FBA600B9916B /* ContentView.swift */,
-				1D868CF22885EE020064DEFE /* HomePage.swift */,
 				015812A4287DF88E004AAE67 /* Manual.swift */,
 				010CE267285CFB680076C97E /* CameraView.swift */,
 				018D9A9A287F3C65002BD038 /* intermediateView.swift */,
@@ -221,7 +218,6 @@
 				015812A5287DF88E004AAE67 /* Manual.swift in Sources */,
 				019E1E6B2863575E004F9062 /* CroppedView.swift in Sources */,
 				010CE26A285D08110076C97E /* PastTestsView.swift in Sources */,
-				1D868CF32885EE020064DEFE /* HomePage.swift in Sources */,
 				010ECF342878C1B500667FA4 /* Detect.mm in Sources */,
 				01BB4783287C65B500A30D6E /* DetectEdges.mm in Sources */,
 				01274EBE2858FBA600B9916B /* Summer_Research_Project_2022App.swift in Sources */,

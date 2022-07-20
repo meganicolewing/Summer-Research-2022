@@ -13,29 +13,68 @@ struct ContentView: View {
     
     var body: some View {
         
-        TabView{
-            HomePage()
-                .tabItem {
-                    Image(systemName: "house")
-                    Text("Home")
-                    //broken atm
+        let screenSize: CGRect = UIScreen.main.bounds
+        let screenHeight = screenSize.height
+        let screenWidth = screenSize.width
+        
+        NavigationView{
+        ZStack{
+            Color("Main_Yellow")
+                            .ignoresSafeArea()
+            Image("white")
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 345.0, height: (screenHeight - 170))
+                .cornerRadius(/*@START_MENU_TOKEN@*/20.0/*@END_MENU_TOKEN@*/)
+                .position(x: screenWidth/2, y: (screenHeight/2 - 75))
+            VStack {
+                
+                Image("logo")
+                    .cornerRadius(/*@START_MENU_TOKEN@*/20.0/*@END_MENU_TOKEN@*/)
+                
+                Text("RGB Engineers")
+                    .fontWeight(.bold).padding(.bottom).dynamicTypeSize(/*@START_MENU_TOKEN@*/.accessibility2/*@END_MENU_TOKEN@*/)
+
+                Spacer()
+                NavigationLink {
+                    CameraView()
+                } label: {
+                    Image("Analyze a Sample")
+                        .aspectRatio(contentMode: .fit)
+                        .padding()
+                        .frame(width: 290.0, height: 120.0)
+                        .cornerRadius(/*@START_MENU_TOKEN@*/20.0/*@END_MENU_TOKEN@*/)
                 }
-            CameraView()
-                .tabItem {
-                    Image(systemName: "magnifyingglass")
-                    Text("Analyze")
+                Spacer()
+                NavigationLink{
+                    PastTestsView()
                 }
-            PastTestsView()
-                .tabItem {
-                    Image(systemName: "clock")
-                    Text("Past Tests")
+            label:{
+                Image("View Past Tests")
+                    .aspectRatio(contentMode: .fit)
+                    .padding()
+                    .frame(width: 290.0, height: 120.0)
+                    .cornerRadius(/*@START_MENU_TOKEN@*/20.0/*@END_MENU_TOKEN@*/)
                 }
-            Manual()
-                .tabItem {
-                    Image(systemName: "book")
-                    Text("Instructions")
+                Spacer()
+                NavigationLink{
+                    Manual()
                 }
+            label:{
+                Image("Instructions")
+                    .aspectRatio(contentMode: .fit)
+                    .padding()
+                    .frame(width: 175.0, height: 60.0)
+                    .cornerRadius(/*@START_MENU_TOKEN@*/20.0/*@END_MENU_TOKEN@*/)
+                }
+                Spacer()
+                Spacer()
+                
+            }.navigationBarTitle("")
+                .navigationBarHidden(true)
             
+            
+        }
+        
         }
         
     }

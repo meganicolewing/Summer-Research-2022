@@ -19,13 +19,13 @@ struct ContentView: View {
         
         NavigationView{
         ZStack{
-            Color("Main_Yellow")
+            Color("Turquoise")
                             .ignoresSafeArea()
             Image("white")
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 345.0, height: (screenHeight - 170))
                 .cornerRadius(/*@START_MENU_TOKEN@*/20.0/*@END_MENU_TOKEN@*/)
-                .position(x: screenWidth/2, y: (screenHeight/2 - 75))
+                .position(x: screenWidth/2, y: (screenHeight/2 - 25))
             VStack {
                 
                 Image("logo")

@@ -32,6 +32,9 @@ struct CameraView: View {
     
     var body: some View {
         
+        ZStack{
+            Color("Turquoise")
+                            .ignoresSafeArea()
             VStack{
                 
                 Spacer()
@@ -92,6 +95,16 @@ struct CameraView: View {
                                isActive: $readyToContinue)
                     .opacity(0)
                 Spacer()
+                NavigationLink{
+                    ContentView()
+                }
+            label:{
+                Image("home button")
+                    .aspectRatio(contentMode: .fit)
+                    .padding()
+                    .frame(width: 60.0, height: 60.0)
+                    .cornerRadius(/*@START_MENU_TOKEN@*/20.0/*@END_MENU_TOKEN@*/)
+                }
                 
 
                 
@@ -100,6 +113,7 @@ struct CameraView: View {
         //used to display either the photo library or the camera
         .sheet(isPresented: $showImagePicker) {
             ImagePicker(image: self.$image, isShown: self.$showImagePicker, sourceType: self.sourceType)
+        }
         }
     }
 }

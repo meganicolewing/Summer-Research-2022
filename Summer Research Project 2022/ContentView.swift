@@ -8,45 +8,36 @@
 
 import SwiftUI
 
+
 struct ContentView: View {
     
     var body: some View {
         
-            NavigationView{
-                VStack {
-                    Text("Welcome!").fontWeight(.bold).padding(.bottom).dynamicTypeSize(/*@START_MENU_TOKEN@*/.accessibility2/*@END_MENU_TOKEN@*/)
-                    Text("Choose an option below:")
-                        .padding(.bottom)
-                    NavigationLink {
-                        CameraView()
-                        //SwiftUIView()
-                    } label: {
-                        Text("Analyze a Sample")
-                            .fontWeight(.medium)
-                            .foregroundColor(Color.white)
-                            .padding(.all)
-                            .background(Color.blue)
-                            .cornerRadius(20)
-                            .padding()
-                    }
-                
-                    NavigationLink{
-                        PastTestsView()
-                    }
-                label:{
-                    Text("View Past Tests   ")
-                        .fontWeight(.medium)
-                        .foregroundColor(Color.white)
-                        .padding(.all)
-                        .background(Color.blue)
-                        .cornerRadius(20)
-                        .padding()
-                    }
-                        
-
+        TabView{
+            HomePage()
+                .tabItem {
+                    Image(systemName: "house")
+                    Text("Home")
+                    //broken atm
                 }
-            }.navigationBarBackButtonHidden(true).navigationBarHidden(true)
+            CameraView()
+                .tabItem {
+                    Image(systemName: "magnifyingglass")
+                    Text("Analyze")
+                }
+            PastTestsView()
+                .tabItem {
+                    Image(systemName: "clock")
+                    Text("Past Tests")
+                }
+            Manual()
+                .tabItem {
+                    Image(systemName: "book")
+                    Text("Instructions")
+                }
             
+        }
+        
     }
 }
 

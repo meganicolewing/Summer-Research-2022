@@ -40,7 +40,7 @@ struct CameraView: View {
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .padding()
-                    .opacity(imageUploaded ? 1:0)
+//                    .opacity(imageUploaded ? 1:0)
                 
                 Button(action: {
                     
@@ -48,11 +48,10 @@ struct CameraView: View {
                     
                 }, label: {
                    
-                    Text("Choose an Image")
-                        .fontWeight(.medium)
-                        .foregroundColor(Color.white)
-                        .padding(.all)
-                        .background(/*@START_MENU_TOKEN@*//*@PLACEHOLDER=View@*/Color.blue/*@END_MENU_TOKEN@*/)
+                    Image("Choose an Image")
+                        .aspectRatio(contentMode: .fit)
+                        .padding()
+                        .frame(width: 175.0, height: 60.0)
                         .cornerRadius(/*@START_MENU_TOKEN@*/20.0/*@END_MENU_TOKEN@*/)
                    
                     
@@ -62,14 +61,15 @@ struct CameraView: View {
                     testResults = getNewLimits(edges, image)
                     readyToContinue = true
                 }, label: {
-                    Text("Continue               ")
+                    Image("Continue")
+                        .aspectRatio(contentMode: .fit)
+                        .padding()
+                        .frame(width: 175.0, height: 60.0)
+                        .cornerRadius(/*@START_MENU_TOKEN@*/20.0/*@END_MENU_TOKEN@*/)
                 })
                 
-                    .padding()
-                    .background(Color.blue)
-                    .foregroundColor(Color.white)
-                    .cornerRadius(20)
-                    .opacity(imageUploaded ? 1:0)
+                  
+                    //.opacity(imageUploaded ? 1:0)
                 //used to display the view asking if the user would like to use an image from library or use the camera
                 .actionSheet(isPresented: $showSheet) {
                     ActionSheet(title: Text("Select Photo"),

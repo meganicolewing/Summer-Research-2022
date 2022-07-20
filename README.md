@@ -24,7 +24,7 @@ We were unable to add OpenCV directly to the GitHub, as the amount of files need
 This folder contains an earlier test for opening the camera and taking pictures within an app utilizing Swift. 
 
 ## Detect.mm, DetectEdges.hpp, DetectEdgesWrapper.h, PrefixHeader.pch
-These files were a part of a test to detect the edges of the testing strip. 
+These files contain C++ and Objective-C code that works with OpenCV to find the edges of a test from an image.
 
 ## avgRGB
 This file is an early test for finding the average red, green, and blue values within a given image. This code was modified and adapted into the `analyzePixels` function, which can be found in the **Summer Research Project 2022** folder. This test file would also remove any overly dark pixels, to reduce the effects of shadows or user error on the results of the function. This can be downloaded and opened in an XCode Playground.

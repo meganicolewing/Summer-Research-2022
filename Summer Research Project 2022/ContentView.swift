@@ -4,7 +4,7 @@
 //
 //  Created by CTL Media Lab on 6/14/22.
 //
-// Test
+// ContentView: This is the main starting view
 
 import SwiftUI
 
@@ -26,6 +26,7 @@ struct ContentView: View {
                 .frame(width: 345.0, height: (screenHeight - 170))
                 .cornerRadius(/*@START_MENU_TOKEN@*/20.0/*@END_MENU_TOKEN@*/)
                 .position(x: screenWidth/2, y: (screenHeight/2 - 25))
+            
             VStack {
                 
                 Image("logo")
@@ -47,6 +48,9 @@ struct ContentView: View {
                 Spacer()
                 NavigationLink{
                     PastTestsView()
+                        .navigationBarTitle("")
+                        .navigationBarHidden(true)
+                    
                 }
             label:{
                 Image("View Past Tests")

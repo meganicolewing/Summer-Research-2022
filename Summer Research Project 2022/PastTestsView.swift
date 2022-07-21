@@ -70,6 +70,18 @@ struct PastTestsView: View {
                 .position(x: screenWidth/2 - 10, y: (screenHeight/2 - 20))
                 .frame(width: screenWidth - 20, height: (screenHeight-300))
             
+            NavigationLink{
+                ContentView()
+            }
+        label:{
+            Image("home button")
+                .aspectRatio(contentMode: .fit)
+                .padding()
+                .frame(width: 60.0, height: 60.0)
+                .cornerRadius(/*@START_MENU_TOKEN@*/20.0/*@END_MENU_TOKEN@*/)
+                .position(x: screenWidth/2, y: (screenHeight/2 + 325))
+            }
+            
                 
         
         }

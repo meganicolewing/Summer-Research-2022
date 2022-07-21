@@ -17,6 +17,17 @@ func analyzePixels(_ image: UIImage, /* _ numList: inout [Int], */ _ box: testBo
     guard let cgImage = image.cgImage, let data = cgImage.dataProvider?.data, let bytes = CFDataGetBytePtr(data) else {
         fatalError("Couldn't access image data")
     }
+    var xStart = box.xMin
+    var xEnd = box.xMax
+    var yStart = box.yMin
+    var yEnd = box.yMax
+    if box.xMax == -1
+    {
+        xStart = 0
+        xEnd = cgImage.width
+        yStart = 0
+        yEnd = cgImage.height
+    }
     //used to hold the current value
     var currRed:Double = 0
     var currBlue:Double = 0
@@ -37,23 +48,24 @@ func analyzePixels(_ image: UIImage, /* _ numList: inout [Int], */ _ box: testBo
     let bytesPerPixel = cgImage.bitsPerPixel / cgImage.bitsPerComponent
 
     //goes through each pixel of the image in the box and adds the RGB values to the appropriate variable
-    for y in box.yMin ..< box.yMax {
-        for x in box.xMin ..< box.xMax {
+    for y in yStart ..< yEnd {
+        for x in xStart ..< xEnd {
             let offset = (y * cgImage.bytesPerRow) + (x * bytesPerPixel)
             // find the current RGB values
             currRed = (Double(bytes[offset]))
             currBlue = (Double(bytes[offset + 2]))
             currGreen = (Double(bytes[offset + 1]))
+            print("pixel: (\(x),\(y))\tred: \(currRed)\tgreen : \(currGreen)\tblue: \(currBlue)")
             // finds the max and min RGB values, then checks them to make sure they are different enough that the pixel isn't grayscle, ensuring that the inside of the test is being picked up, rather than the outline of the test
             currMax = max(currRed, currGreen, currBlue)
             currMin = min(currRed, currGreen, currBlue)
-            if (currMax - currMin) > 50 {
+          //  if (currMax - currMin) > 50 {
                 // adds the values to the average if the the pixel is suitable
                 avgRed = (currRed + avgRed)
                 avgGreen = (currGreen + avgGreen)
                 avgBlue = (currBlue + avgBlue)
                 numPixels += 1
-            }
+           // }
         }
     }
     

@@ -16,24 +16,31 @@ struct testBox {
     var yMin:Int = -1
     var yMax:Int = -1
     var center:[Int] = [-1, -1]
+    init()
+    {
+        xMax = -1
+        xMin = -1
+        yMin = -1
+        yMax = -1
+        center = [-1,-1]
+    }
     // intiates a testBox using information collected about the bulb of a test
     // coords - coordinates of the edge of the bulb
     // radius - half the length of one side of the box
     // left - boolean determining if the box is on the right or left of the image - helps ensure xMin and xMax are appropriately assigned
     init(coords: [Int], radius: Int, left: Bool) {
         // y-coordinates go 1/4 of the radius up and down from the center of the bulb
-        let radiusFromCenter = Int(radius / 4)
-        print("little r: ", radiusFromCenter)
+        let radiusFromCenter = Int(radius / 25)
         center[1] = coords[1]
-        yMin = center[1] - radiusFromCenter
-        yMax = center[1] + radiusFromCenter
+        yMin = center[1] + radiusFromCenter*2
+        yMax = center[1] + radiusFromCenter*4
         // if the bulb is on the left of the image, we add the radius of the bulb to find the center
         if left {
-            center[0] = coords[0] + radius
+            center[0] = coords[0] + radius + radiusFromCenter
         }
         //if the bulb is on the right of the image, we subtract the radius to find the center
         else {
-            center[0] = coords[0] - radius
+            center[0] = coords[0] - radius - radiusFromCenter
         }
         // add and subtract 1/4 of the radius from the center to find the max and min
         xMin = center[0] - radiusFromCenter
@@ -44,12 +51,12 @@ struct testBox {
 // holds saturation data about all six bulbs in a test
 struct results {
     // test 1 is the bottom test, while test 3 is the top test
-    var test1Left = -1
-    var test1Right = -1
-    var test2Left = -1
-    var test2Right = -1
-    var test3Left = -1
-    var test3Right = -1
+    var test1Left:Int = -1
+    var test1Right:Int = -1
+    var test2Left:Int = -1
+    var test2Right:Int = -1
+    var test3Left:Int = -1
+    var test3Right:Int = -1
 }
 
 // image - pointer to a UIImage, this should be an image that has been returned from an edge detector and contains only the edges of the test
@@ -89,7 +96,7 @@ func testFinder(_ image: UIImage!, _ reverseX:Bool = false, _ startY: Int = -1, 
     //count for number of pixels in a search box
     var count = 0
     //number of white pixels needed in the search box
-    let sentinel = 10 //figure out proportion of this to image size
+    let sentinel = 5 //figure out proportion of this to image size
     
     //box to search around the found white pixel to see if you can fine enough to fullfil sentinel
     let searchBoxWidth = sqrt(Double(cgImage.width))/4
@@ -190,7 +197,7 @@ func getNewLimits(_ edges: UIImage!, _ image:UIImage!) -> results {
     let test3LeftCoordinates = testFinder(edges, false, start3, end3)
     let test3RightCoordinates = testFinder(edges, true, start3, end3)
     
-    let bigSquare = bulbDistance * 6/19
+    let bigSquare = bulbDistance * 2/5
     //print("bigSquare : \(bigSquare)")
     // finds a quarter of the length of a bulb. used to find a square within each bulb by going in this distance from each side
     let bulbRadius = Int(bigSquare/2)
@@ -204,6 +211,37 @@ func getNewLimits(_ edges: UIImage!, _ image:UIImage!) -> results {
     let test3RightBox = testBox(coords: test3RightCoordinates, radius: bulbRadius, left: false)
     // calls the analyzePixels function with the original image and each testBox and stores all the results in a results object to be returned
     var testResults = results()
+ /*   testResults.test1Left = CGRect(
+        x: (Double(test1LeftBox.xMin)/Double(cgImage.width)),
+        y: (Double(test1LeftBox.yMin)/Double(cgImage.height)),
+        width: Double(abs(test1LeftBox.xMax - test1LeftBox.xMin))/Double(cgImage.width),
+        height: Double(abs(test1LeftBox.yMax - test1LeftBox.yMin))/Double(cgImage.height))
+    testResults.test1Right = CGRect(
+        x: (Double(test1RightBox.xMin)/Double(cgImage.width)),
+        y: (Double(test1RightBox.yMin)/Double(cgImage.height)),
+        width: Double(abs(test1RightBox.xMax - test1RightBox.xMin))/Double(cgImage.width),
+        height: Double(abs(test1RightBox.yMax - test1RightBox.yMin))/Double(cgImage.height))
+    testResults.test2Left = CGRect(
+        x: (Double(test2LeftBox.xMin)/Double(cgImage.width)),
+        y: (Double(test2LeftBox.yMin)/Double(cgImage.height)),
+        width: Double(abs(test2LeftBox.xMax - test2LeftBox.xMin))/Double(cgImage.width),
+        height: Double(abs(test2LeftBox.yMax - test2LeftBox.yMin))/Double(cgImage.height))
+    testResults.test2Right = CGRect(
+        x: (Double(test2RightBox.xMin)/Double(cgImage.width)),
+        y: (Double(test2RightBox.yMin)/Double(cgImage.height)),
+        width: Double(abs(test2RightBox.xMax - test2RightBox.xMin))/Double(cgImage.width),
+        height: Double(abs(test2RightBox.yMax - test2RightBox.yMin))/Double(cgImage.height))
+    testResults.test3Left = CGRect(
+        x: (Double(test3LeftBox.xMin)/Double(cgImage.width)),
+        y: (Double(test3LeftBox.yMin)/Double(cgImage.height)),
+        width: Double(abs(test3LeftBox.xMax - test3LeftBox.xMin))/Double(cgImage.width),
+        height: Double(abs(test3LeftBox.yMax - test3LeftBox.yMin))/Double(cgImage.height))
+    testResults.test3Right = CGRect(
+        x: (Double(test3RightBox.xMin)/Double(cgImage.width)),
+        y: (Double(test3RightBox.yMin)/Double(cgImage.height)),
+        width: Double(abs(test3RightBox.xMax - test3RightBox.xMin))/Double(cgImage.width),
+        height: Double(abs(test3RightBox.yMax - test3RightBox.yMin))/Double(cgImage.height))
+  */
     print("top left")
     testResults.test1Left = analyzePixels(image, test1LeftBox)
     print("top right")

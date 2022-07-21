@@ -58,7 +58,7 @@ struct CameraView: View {
                 }).padding()
                 Button(action: {
                     edges = DetectEdgesWrapper().detectFunction(image)
-                   // testResults = getNewLimits(edges, image)
+                    testResults = getNewLimits(edges, image)
                     readyToContinue = true
                 }, label: {
                     Image("Continue")
@@ -88,7 +88,7 @@ struct CameraView: View {
                 Spacer()
 
                 NavigationLink("Continue               ",
-                               destination: intermediateView(edges: edges, image: image),
+                               destination: intermediateView(edges: edges, image: image, rectangles: testResults),
                                isActive: $readyToContinue)
                     .opacity(0)
                 Spacer()

@@ -15,26 +15,29 @@ struct testBox {
     var xMax:Int = -1
     var yMin:Int = -1
     var yMax:Int = -1
+    var center:[Int] = [-1, -1]
     // intiates a testBox using information collected about the bulb of a test
     // coords - coordinates of the edge of the bulb
     // radius - half the length of one side of the box
     // left - boolean determining if the box is on the right or left of the image - helps ensure xMin and xMax are appropriately assigned
     init(coords: [Int], radius: Int, left: Bool) {
-        // y-coordinates go the radius up and down from the detected coordinate
-        yMin = coords[1] - radius
-        yMax = coords[1] + radius
-        // if the bulb is on the left of the image, we add to move further into the image
+        // y-coordinates go 1/4 of the radius up and down from the center of the bulb
+        let radiusFromCenter = Int(radius / 4)
+        print("little r: ", radiusFromCenter)
+        center[1] = coords[1]
+        yMin = center[1] - radiusFromCenter
+        yMax = center[1] + radiusFromCenter
+        // if the bulb is on the left of the image, we add the radius of the bulb to find the center
         if left {
-            // add one radius to get the left side of the box, within the test bulb
-            xMin = coords[0] + radius
-            // add three radiuses to get the right side of the box, within the test bulb
-            xMax = coords[0] + (radius * 3)
+            center[0] = coords[0] + radius
         }
-        // if the bulb is on the right of the image, we subtract to move further into the image
+        //if the bulb is on the right of the image, we subtract the radius to find the center
         else {
-            xMin = coords[0] - (radius * 3)
-            xMax = coords[0] - radius
+            center[0] = coords[0] - radius
         }
+        // add and subtract 1/4 of the radius from the center to find the max and min
+        xMin = center[0] - radiusFromCenter
+        xMax = center[0] + radiusFromCenter
     }
 }
 
@@ -190,15 +193,15 @@ func getNewLimits(_ edges: UIImage!, _ image:UIImage!) -> results {
     let bigSquare = bulbDistance * 6/19
     //print("bigSquare : \(bigSquare)")
     // finds a quarter of the length of a bulb. used to find a square within each bulb by going in this distance from each side
-    let squareRadius = Int(bigSquare/4)
+    let bulbRadius = Int(bigSquare/2)
     //print("square radius: \(squareRadius)")
     // creates testBox objects for each bulb
-    let test1LeftBox = testBox(coords: test1LeftCoordinates, radius: squareRadius, left: true)
-    let test1RightBox = testBox(coords: test1RightCoordinates, radius: squareRadius, left: false)
-    let test2LeftBox = testBox(coords: test2LeftCoordinates, radius: squareRadius, left: true)
-    let test2RightBox = testBox(coords: test2RightCoordinates, radius: squareRadius, left: false)
-    let test3LeftBox = testBox(coords: test3LeftCoordinates, radius: squareRadius, left: true)
-    let test3RightBox = testBox(coords: test3RightCoordinates, radius: squareRadius, left: false)
+    let test1LeftBox = testBox(coords: test1LeftCoordinates, radius: bulbRadius, left: true)
+    let test1RightBox = testBox(coords: test1RightCoordinates, radius: bulbRadius, left: false)
+    let test2LeftBox = testBox(coords: test2LeftCoordinates, radius: bulbRadius, left: true)
+    let test2RightBox = testBox(coords: test2RightCoordinates, radius: bulbRadius, left: false)
+    let test3LeftBox = testBox(coords: test3LeftCoordinates, radius: bulbRadius, left: true)
+    let test3RightBox = testBox(coords: test3RightCoordinates, radius: bulbRadius, left: false)
     // calls the analyzePixels function with the original image and each testBox and stores all the results in a results object to be returned
     var testResults = results()
     print("top left")

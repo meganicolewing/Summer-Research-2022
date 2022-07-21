@@ -14,6 +14,7 @@ struct intermediateView: View {
     @State private var readyToContinue:Bool = false
     @State private var testResults: results!
     var body: some View {
+        
         VStack {
             Image(uiImage: edges)
                 .resizable()

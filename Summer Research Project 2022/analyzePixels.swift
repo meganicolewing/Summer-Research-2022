@@ -58,10 +58,10 @@ func analyzePixels(_ image: UIImage, /* _ numList: inout [Int], */ _ box: testBo
             currBlue = (Double(bytes[offset + 2]))
             currGreen = (Double(bytes[offset + 1]))
             
-            print("[" + String(x) + ", " + String(y) + "]: ")
-            print("Red: ", currRed)
-            print("Green: ", currGreen)
-            print("Blue: ", currBlue)
+//            print("[" + String(x) + ", " + String(y) + "]: ")
+//            print("Red: ", currRed)
+//            print("Green: ", currGreen)
+//            print("Blue: ", currBlue)
             
             //Converts x and y coordinates to UI coordinates
             

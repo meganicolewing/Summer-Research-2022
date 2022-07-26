@@ -87,6 +87,7 @@ struct AnalyzeView: View {
         }.opacity(pressedRGB ? 1:0)
                     
         }.navigationBarTitle("Analyze Your Test")
+
        
         
     }

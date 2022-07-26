@@ -138,6 +138,7 @@ struct intermediateView: View {
                     .opacity(0)
             })
         }
+
     }
 }
 

@@ -18,6 +18,7 @@ struct CroppedView: View {
             Text("Test Three Left: \(testResults.test3Left)")
             Text("Text Three Right: \(testResults.test3Right)")*/
         }
+
     }
 }
 

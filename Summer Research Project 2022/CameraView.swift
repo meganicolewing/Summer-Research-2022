@@ -18,7 +18,8 @@ struct CameraView: View {
     @State private var image: UIImage!
     @State private var edges: UIImage!
     @State private var readyToContinue: Bool = false
-    @State private var testResults: results!
+    @State private var errorFound:Bool = false
+    @State private var testResults: results! = results()
 
     //for the navigation - is true when the image variable holds an image and false otherwise
     private var imageUploaded:Bool {
@@ -76,7 +77,12 @@ struct CameraView: View {
                 Button(action: {
                     edges = DetectEdgesWrapper().detectFunction(image)
                     testResults = getNewLimits(edges, image)
-                    readyToContinue = true
+                    if testResults.rectangles1Left == [] {
+                        errorFound = true
+                    }
+                    else {
+                        readyToContinue = true
+                    }
                 }, label: {
                     Image("Continue")
                         .aspectRatio(contentMode: .fit)
@@ -108,6 +114,10 @@ struct CameraView: View {
                                destination: intermediateView(rectangleStruct:testResults, edges: edges, image: image),
                                isActive: $readyToContinue)
                     .opacity(0)
+                NavigationLink("error",
+                               destination: ErrorView(),
+                               isActive: $errorFound)
+                .opacity(0)
                 Spacer()
                 
                 //home button
@@ -126,6 +136,7 @@ struct CameraView: View {
 
                 
             }.navigationBarTitle("Upload Your Test", displayMode: .inline)
+
             
         //used to display either the photo library or the camera
         .sheet(isPresented: $showImagePicker) {

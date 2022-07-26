@@ -50,7 +50,7 @@ struct testBox {
 }
 
 // holds saturation data about all six bulbs in a test
-struct results {
+class results {
     // test 1 is the bottom test, while test 3 is the top test
    /* var test1Left:Double = -1
     var test1Right:Double = -1
@@ -127,6 +127,10 @@ func testFinder(_ image: UIImage!, _ reverseX:Bool = false, _ startY: Int = -1, 
         for y in minY ..< maxY {
             let offset = (y * cgImage.bytesPerRow) + (x)
             //print(offset)
+            if (offset >= cgImage.height * cgImage.width) || (offset < 0) {
+                print("error with parsing image pixels")
+                return [-1]
+            }
             pixel = Int(bytes[offset])
             // when a white pixel is found, reset the count to one, then set the bounds of the new search box using that pixel and the radius of the search box defined above
             // this is done to ensure that a small error in the edge detection doesn't result in the wrong coordinate being returned
@@ -145,6 +149,10 @@ func testFinder(_ image: UIImage!, _ reverseX:Bool = false, _ startY: Int = -1, 
                 for row in x1 ..< x2 {
                     for col in y1 ..< y2 {
                         let innerOffset = (col * cgImage.bytesPerRow) + (row)
+                        if (innerOffset >= cgImage.height * cgImage.width) || (innerOffset < 0) {
+                            print("innerOffset out of bounds")
+                            return [-1]
+                        }
                         pixel = Int(bytes[innerOffset])
                         if pixel > 100 {
                             count += 1
@@ -160,6 +168,7 @@ func testFinder(_ image: UIImage!, _ reverseX:Bool = false, _ startY: Int = -1, 
         }
     }
     // if no correct edge is found, return -1. this needs to be changed as it will cause the app to crash
+    print("no edge found")
     return [-1]
 }
 
@@ -173,7 +182,13 @@ func getNewLimits(_ edges: UIImage!, _ image:UIImage!) -> results {
     }
     //finds the furthest left and furthest right edges of the test
     let leftCoordinate = testFinder(edges, false, 0, Int(Double(cgImage.height)/2.5 + 0.5))
+    if leftCoordinate == [-1] {
+        return results()
+    }
     let rightCoordinate = testFinder(edges, true)
+    if rightCoordinate == [-1] {
+        return results()
+    }
     //determines which of the right or left coordaintes refers to the top test
     var topCoordinate = leftCoordinate
     var firstIsLeft:Bool = true
@@ -187,6 +202,9 @@ func getNewLimits(_ edges: UIImage!, _ image:UIImage!) -> results {
     // determines if the other top coordinate is on the left or right side
     let startRight:Bool = (leftCoordinate[1] < rightCoordinate[1])
     let nextTopCoordinate = testFinder(edges, startRight, startY, endY)
+    if nextTopCoordinate == [-1] {
+        return results()
+    }
     print("coordinates: ", topCoordinate, nextTopCoordinate)
     // uses the dimensions of the test to determine how far down to move when searching for the second and third tests
     // uses the first coordinates found to find the total distance between the bulbs
@@ -216,9 +234,21 @@ func getNewLimits(_ edges: UIImage!, _ image:UIImage!) -> results {
     }
     // call testFinder to find left and right coordinates of the other two tests
     let test2LeftCoordinates = testFinder(edges, false, start2, end2)
+    if test2LeftCoordinates == [-1] {
+        return results()
+    }
     let test2RightCoordinates = testFinder(edges, true, start2, end2)
+    if test2RightCoordinates == [-1] {
+        return results()
+    }
     let test3LeftCoordinates = testFinder(edges, false, start3, end3)
+    if test3LeftCoordinates == [-1] {
+        return results()
+    }
     let test3RightCoordinates = testFinder(edges, true, start3, end3)
+    if test3RightCoordinates == [-1] {
+        return results()
+    }
     
     //print("xDist : \(xDistance)\nyDist: \(yDistance)")
     //print("bulbDistance: \(bulbDistance)")
@@ -226,8 +256,11 @@ func getNewLimits(_ edges: UIImage!, _ image:UIImage!) -> results {
     let bigSquare = bulbDistance * 2/5
     //print("bigSquare : \(bigSquare)")
     // finds a quarter of the length of a bulb. used to find a square within each bulb by going in this distance from each side
-    let squareRadius = Int(bigSquare/2)
+    let bulbRadius = Int(bigSquare/2)
     //print("square radius: \(squareRadius)")
+    if bulbRadius < 25 {
+        return results()
+    }
     // creates testBox objects for each bulb
     let test1LeftBox = testBox(coords: test1LeftCoordinates, radius: bulbRadius, left: true)
     let test1RightBox = testBox(coords: test1RightCoordinates, radius: bulbRadius, left: false)

@@ -64,6 +64,7 @@ struct Manual: View {
                 
             }
         }.navigationBarHidden(true)
+
     }
 }
 

@@ -15,38 +15,51 @@ struct testBox {
     var xMax:Int = -1
     var yMin:Int = -1
     var yMax:Int = -1
+    var center:[Int] = [-1, -1]
     // intiates a testBox using information collected about the bulb of a test
     // coords - coordinates of the edge of the bulb
     // radius - half the length of one side of the box
     // left - boolean determining if the box is on the right or left of the image - helps ensure xMin and xMax are appropriately assigned
     init(coords: [Int], radius: Int, left: Bool) {
         // y-coordinates go the radius up and down from the detected coordinate
-        yMin = coords[1] - radius
-        yMax = coords[1] + radius
+        let radiusFromCenter = Int(radius/25)
+        print(radiusFromCenter)
+        center[1] = coords[1]
+        yMin = coords[1] - radiusFromCenter
+        yMax = coords[1] + radiusFromCenter
         // if the bulb is on the left of the image, we add to move further into the image
         if left {
-            // add one radius to get the left side of the box, within the test bulb
-            xMin = coords[0] + radius
-            // add three radiuses to get the right side of the box, within the test bulb
-            xMax = coords[0] + (radius * 3)
+            center[0] = coords[0] + radius
         }
         // if the bulb is on the right of the image, we subtract to move further into the image
         else {
-            xMin = coords[0] - (radius * 3)
-            xMax = coords[0] - radius
+            center[0] = coords[0] - radius
         }
+        xMin = center[0] - radiusFromCenter
+        xMax = center[0] + radiusFromCenter
     }
 }
 
 // holds saturation data about all six bulbs in a test
 struct results {
     // test 1 is the bottom test, while test 3 is the top test
-    var test1Left:Double = -1
+   /* var test1Left:Double = -1
     var test1Right:Double = -1
     var test2Left:Double = -1
     var test2Right:Double = -1
     var test3Left:Double = -1
-    var test3Right:Double = -1
+    var test3Right:Double = -1*/
+    
+    var rectangles1Left:[CGRect] = []
+    var rectangles1Right:[CGRect] = []
+    var rectangles2Left:[CGRect] = []
+    var rectangles2Right:[CGRect] = []
+    var rectangles3Left:[CGRect] = []
+    var rectangles3Right:[CGRect] = []
+    
+    var searchBoxes:[CGRect] = []
+    
+    var pixelsDetected:[CGRect] = []
 }
 
 // image - pointer to a UIImage, this should be an image that has been returned from an edge detector and contains only the edges of the test
@@ -86,29 +99,37 @@ func testFinder(_ image: UIImage!, _ reverseX:Bool = false, _ startY: Int = -1, 
     //count for number of pixels in a search box
     var count = 0
     //number of white pixels needed in the search box
-    let sentinel = 10 //figure out proportion of this to image size
+    let sentinel = 30 //figure out proportion of this to image size
     
-    //box to search around the found white pixel to see if you can fine enough to fullfil sentinel
-    let searchBoxWidth = sqrt(Double(cgImage.width))/4
-    let searchBoxHeight = sqrt(Double(cgImage.height))/4
+    //box to search around the found white pixel to see if you can find enough to fullfil sentinel
+    let searchBoxWidth:Double = sqrt(Double(cgImage.width))
+    let searchBoxHeight:Double = sqrt(Double(cgImage.width))
     
     let searchBoxHeightRadius = searchBoxHeight/2
     
     //ensures the pixels of the image will be read properly
     assert(cgImage.colorSpace?.model == .monochrome)
 
+    print("Height: ", cgImage.height)
+    print("Width: ", cgImage.width)
+    
     //goes through each pixel of the image to see if it is white
     for x in stride(from:startX, through:endX, by: increment) {
         for y in minY ..< maxY {
             let offset = (y * cgImage.bytesPerRow) + (x)
+            //print(offset)
             pixel = Int(bytes[offset])
             // when a white pixel is found, reset the count to one, then set the bounds of the new search box using that pixel and the radius of the search box defined above
             // this is done to ensure that a small error in the edge detection doesn't result in the wrong coordinate being returned
-            if pixel > 250
+            if pixel > 100
             {
                 count = 1
-                let x2:Int = Int(x) + Int(searchBoxWidth + 0.5)
-                let x1:Int = Int(x)
+                var x2:Int = Int(x) + Int(searchBoxWidth + 0.5)
+                var x1:Int = Int(x)
+                if reverseX {
+                    x2 = Int(x)
+                    x1 = Int(x) - Int(searchBoxWidth + 0.5)
+                }
                 let y1:Int = Int(y) - Int(searchBoxHeightRadius + 0.5)
                 let y2:Int = Int(y) + Int(searchBoxHeightRadius + 0.5)
                 // search within the defined search box to find more white pixels
@@ -116,14 +137,15 @@ func testFinder(_ image: UIImage!, _ reverseX:Bool = false, _ startY: Int = -1, 
                     for col in y1 ..< y2 {
                         let innerOffset = (col * cgImage.bytesPerRow) + (row)
                         pixel = Int(bytes[innerOffset])
-                        if pixel > 250 {
+                        if pixel > 100 {
                             count += 1
                         }
                     }
                 }
                 //if enough white pixels are found, return the initial coordinate. if not, continue looking through the image to find the correct edge
                 if count >= sentinel {
-                    return [x,y]
+                    print("x,y: ", x, ", ", y)
+                    return [x,y, Int(searchBoxWidth), Int(searchBoxHeight)]
                 }
             }
         }
@@ -141,7 +163,7 @@ func getNewLimits(_ edges: UIImage!, _ image:UIImage!) -> results {
         fatalError("cannot access image")
     }
     //finds the furthest left and furthest right edges of the test
-    let leftCoordinate = testFinder(edges)
+    let leftCoordinate = testFinder(edges, false, 0, Int(Double(cgImage.height)/2.5 + 0.5))
     let rightCoordinate = testFinder(edges, true)
     //determines which of the right or left coordaintes refers to the top test
     var topCoordinate = leftCoordinate
@@ -158,16 +180,24 @@ func getNewLimits(_ edges: UIImage!, _ image:UIImage!) -> results {
     let nextTopCoordinate = testFinder(edges, startRight, startY, endY)
     print("coordinates: ", topCoordinate, nextTopCoordinate)
     // uses the dimensions of the test to determine how far down to move when searching for the second and third tests
-    let lengthOfTest = abs(topCoordinate[1] - nextTopCoordinate[1])
-    let bulbHeight = Int((Double(lengthOfTest) * (3/7)) + 0.5)
+    // uses the first coordinates found to find the total distance between the bulbs
+    let xDistance = topCoordinate[0] - nextTopCoordinate[0]
+    let yDistance = topCoordinate[1] - nextTopCoordinate[1]
+    let bulbDistance = sqrt(pow(Double(xDistance), 2) + pow(Double(yDistance), 2))
+    
+    let bulbHeight = Int((Double(bulbDistance) * (1/2)) + 0.5)
+    print("Bulb height: ", bulbHeight)
+    
     let avgY = Int((topCoordinate[1] + nextTopCoordinate[1])/2)
     // new y search limits for all three tests, using the numbers caclulated above
     let start1 = avgY - Int(bulbHeight/2)
     let end1 = start1 + bulbHeight
     let start2 = end1
+    print("Start 2: ", start2)
     let end2 = start2 + bulbHeight
     let start3 = end2
-    let end3 = start3 + bulbHeight
+    print("Start 3: ", start3)
+    let end3 = cgImage.height - 1
     // uses the first coordinates found as the coordinates of the first test
     var test1LeftCoordinates = nextTopCoordinate
     var test1RightCoordinates = topCoordinate
@@ -180,17 +210,14 @@ func getNewLimits(_ edges: UIImage!, _ image:UIImage!) -> results {
     let test2RightCoordinates = testFinder(edges, true, start2, end2)
     let test3LeftCoordinates = testFinder(edges, false, start3, end3)
     let test3RightCoordinates = testFinder(edges, true, start3, end3)
-    // uses the first coordinates found to find the total distance between the bulbs
-    let xDistance = test1LeftCoordinates[0] - test1RightCoordinates[0]
-    let yDistance = test1LeftCoordinates[1] - test1RightCoordinates[1]
+    
     //print("xDist : \(xDistance)\nyDist: \(yDistance)")
-    let bulbDistance = sqrt(pow(Double(xDistance), 2) + pow(Double(yDistance), 2))
     //print("bulbDistance: \(bulbDistance)")
     //uses the dimensions of the tests to find how long an individual bulb is
-    let bigSquare = bulbDistance * 6/19
+    let bigSquare = bulbDistance * 2/5
     //print("bigSquare : \(bigSquare)")
     // finds a quarter of the length of a bulb. used to find a square within each bulb by going in this distance from each side
-    let squareRadius = Int(bigSquare/4)
+    let squareRadius = Int(bigSquare/2)
     //print("square radius: \(squareRadius)")
     // creates testBox objects for each bulb
     let test1LeftBox = testBox(coords: test1LeftCoordinates, radius: squareRadius, left: true)
@@ -201,11 +228,123 @@ func getNewLimits(_ edges: UIImage!, _ image:UIImage!) -> results {
     let test3RightBox = testBox(coords: test3RightCoordinates, radius: squareRadius, left: false)
     // calls the analyzePixels function with the original image and each testBox and stores all the results in a results object to be returned
     var testResults = results()
-    testResults.test1Left = analyzePixels(image, test1LeftBox)
+    /*testResults.test1Left = analyzePixels(image, test1LeftBox)
     testResults.test1Right = analyzePixels(image, test1RightBox)
     testResults.test2Left = analyzePixels(image, test2LeftBox)
     testResults.test2Right = analyzePixels(image, test2RightBox)
     testResults.test3Left = analyzePixels(image, test3LeftBox)
-    testResults.test3Right = analyzePixels(image, test3RightBox)
+    testResults.test3Right = analyzePixels(image, test3RightBox)*/
+    
+    // DRAWING RGB TEST BOXES //
+    
+    testResults.rectangles1Left.append(contentsOf: analyzePixels(image, test1LeftBox))
+    testResults.rectangles1Right.append(contentsOf: analyzePixels(image, test1RightBox))
+    testResults.rectangles2Left.append(contentsOf: analyzePixels(image, test2LeftBox))
+    testResults.rectangles2Right.append(contentsOf: analyzePixels(image, test2RightBox))
+    testResults.rectangles3Left.append(contentsOf: analyzePixels(image, test3LeftBox))
+    testResults.rectangles3Right.append(contentsOf: analyzePixels(image, test3RightBox))
+    
+    // DRAWING PIXELS DETECTED //
+    
+    //TOP LEFT
+    testResults.pixelsDetected.append(CGRect(
+        x: Double(test1LeftCoordinates[0])/Double(cgImage.width),
+        y: Double(test1LeftCoordinates[1])/Double(cgImage.height),
+        width: 1/Double(cgImage.width),
+        height: 1/Double(cgImage.height)
+    ))
+    
+    //TOP RIGHT
+    testResults.pixelsDetected.append(CGRect(
+        x: (Double(test1RightCoordinates[0]))/Double(cgImage.width),
+        y: Double(test1RightCoordinates[1])/Double(cgImage.height),
+        width: 1/Double(cgImage.width),
+        height: 1/Double(cgImage.height)
+    ))
+    
+    //MIDDLE LEFT
+    testResults.pixelsDetected.append(CGRect(
+        x: (Double(test2LeftCoordinates[0]))/Double(cgImage.width),
+        y: Double(test2LeftCoordinates[1])/Double(cgImage.height),
+        width: 1/Double(cgImage.width),
+        height: 1/Double(cgImage.height)
+    ))
+    
+    //MIDDLE RIGHT
+    testResults.pixelsDetected.append(CGRect(
+        x: (Double(test2RightCoordinates[0]))/Double(cgImage.width),
+        y: Double(test2RightCoordinates[1])/Double(cgImage.height),
+        width: 1/Double(cgImage.width),
+        height: 1/Double(cgImage.height)
+    ))
+    
+    //BOTTOM LEFT
+    testResults.pixelsDetected.append(CGRect(
+        x: (Double(test3LeftCoordinates[0]))/Double(cgImage.width),
+        y: Double(test3LeftCoordinates[1])/Double(cgImage.height),
+        width: 1/Double(cgImage.width),
+        height: 1/Double(cgImage.height)
+    ))
+    
+    //BOTTOM RIGHT
+    testResults.pixelsDetected.append(CGRect(
+        x: (Double(test3RightCoordinates[0]))/Double(cgImage.width),
+        y: Double(test3RightCoordinates[1])/Double(cgImage.height),
+        width: 1/Double(cgImage.width),
+        height: 1/Double(cgImage.height)
+    ))
+    
+    // DRAWING SEARCH BOXES //
+    
+    let searchRadius = Double(test1LeftCoordinates[3]/2)
+    
+    //TOP LEFT
+    testResults.searchBoxes.append(CGRect(
+        x: Double(test1LeftCoordinates[0])/Double(cgImage.width),
+        y: (Double(test1LeftCoordinates[1]) - Double(searchRadius))/Double(cgImage.height),
+        width: Double(test1LeftCoordinates[2])/Double(cgImage.width),
+        height: Double(test1LeftCoordinates[3])/Double(cgImage.height)
+    ))
+    
+    //TOP RIGHT
+    testResults.searchBoxes.append(CGRect(
+        x: (Double(test1RightCoordinates[0]) - Double(test1LeftCoordinates[2]))/Double(cgImage.width),
+        y: (Double(test1RightCoordinates[1]) - Double(searchRadius))/Double(cgImage.height),
+        width: Double(test1LeftCoordinates[2])/Double(cgImage.width),
+        height: Double(test1LeftCoordinates[3])/Double(cgImage.height)
+    ))
+    
+    //MIDDLE LEFT
+    testResults.searchBoxes.append(CGRect(
+        x: (Double(test2LeftCoordinates[0]))/Double(cgImage.width),
+        y: (Double(test2LeftCoordinates[1]) - Double(searchRadius))/Double(cgImage.height),
+        width: Double(test1LeftCoordinates[2])/Double(cgImage.width),
+        height: Double(test1LeftCoordinates[3])/Double(cgImage.height)
+    ))
+    
+    //MIDDLE RIGHT
+    testResults.searchBoxes.append(CGRect(
+        x: (Double(test2RightCoordinates[0]) - Double(test1LeftCoordinates[2]))/Double(cgImage.width),
+        y: (Double(test2RightCoordinates[1]) - Double(searchRadius))/Double(cgImage.height),
+        width: Double(test1LeftCoordinates[2])/Double(cgImage.width),
+        height: Double(test1LeftCoordinates[3])/Double(cgImage.height)
+    ))
+    
+    //BOTTOM LEFT
+    testResults.searchBoxes.append(CGRect(
+        x: (Double(test3LeftCoordinates[0]))/Double(cgImage.width),
+        y: (Double(test3LeftCoordinates[1]) - Double(searchRadius))/Double(cgImage.height),
+        width: Double(test1LeftCoordinates[2])/Double(cgImage.width),
+        height: Double(test1LeftCoordinates[3])/Double(cgImage.height)
+    ))
+    
+    //BOTTOM RIGHT
+    testResults.searchBoxes.append(CGRect(
+        x: (Double(test3RightCoordinates[0]) - Double(test1LeftCoordinates[2]))/Double(cgImage.width),
+        y: (Double(test3RightCoordinates[1]) - Double(searchRadius))/Double(cgImage.height),
+        width: Double(test1LeftCoordinates[2])/Double(cgImage.width),
+        height: Double(test1LeftCoordinates[3])/Double(cgImage.height)
+    ))
+
     return testResults
 }

@@ -356,7 +356,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Summer Research Project 2022/Preview Content\"";
-				DEVELOPMENT_TEAM = S8QJCY67WW;
+				DEVELOPMENT_TEAM = 224Z5C8S8A;
 				ENABLE_PREVIEWS = YES;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -377,7 +377,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = Centre.Summer.2022;
+				PRODUCT_BUNDLE_IDENTIFIER = Centre.Summer.2022.;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "Summer Research Project 2022-Bridging-Header.h";
@@ -397,7 +397,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Summer Research Project 2022/Preview Content\"";
-				DEVELOPMENT_TEAM = S8QJCY67WW;
+				DEVELOPMENT_TEAM = 224Z5C8S8A;
 				ENABLE_PREVIEWS = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -417,7 +417,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = Centre.Summer.2022;
+				PRODUCT_BUNDLE_IDENTIFIER = Centre.Summer.2022.;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "Summer Research Project 2022-Bridging-Header.h";

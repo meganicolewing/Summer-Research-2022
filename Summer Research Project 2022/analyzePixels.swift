@@ -12,7 +12,7 @@ import UIKit
 //averages RGB values across box in image, returns a double containing the average saturation value
 // box - testBox with the coordinates of the corners of a box to be analyzed in image
 //for more notes on the struct testBox, see "TestFinder.swift"
-func analyzePixels(_ image: UIImage, /* _ numList: inout [Int], */ _ box: testBox) -> Double {
+func analyzePixels(_ image: UIImage, /* _ numList: inout [Int], */ _ box: testBox) -> [CGRect] {
     //acesses image data to process
     guard let cgImage = image.cgImage, let data = cgImage.dataProvider?.data, let bytes = CFDataGetBytePtr(data) else {
         fatalError("Couldn't access image data")
@@ -31,6 +31,8 @@ func analyzePixels(_ image: UIImage, /* _ numList: inout [Int], */ _ box: testBo
     //string to add the RGB values to once processing is complete
     //var rgbValues = ""
     
+    var pixelsDetected:[CGRect] = []
+    
     //ensures the image wil be read as RGB pixels
     assert(cgImage.colorSpace?.model == .rgb)
     //used to parse through the array of image pixels and find RGB values
@@ -44,6 +46,17 @@ func analyzePixels(_ image: UIImage, /* _ numList: inout [Int], */ _ box: testBo
             currRed = (Double(bytes[offset]))
             currBlue = (Double(bytes[offset + 2]))
             currGreen = (Double(bytes[offset + 1]))
+            
+            print("[" + String(x) + ", " + String(y) + "]: ")
+            print("Red: ", currRed)
+            print("Green: ", currGreen)
+            print("Blue: ", currBlue)
+            
+            //Converts x and y coordinates to UI coordinates
+            
+            //Draws pixel on top of current pixel
+            pixelsDetected.append(CGRect(x: Double(x)/Double(cgImage.width), y: Double(y)/Double(cgImage.height), width: Double(1)/Double(cgImage.width), height: Double(1)/Double(cgImage.height)))
+            
             // finds the max and min RGB values, then checks them to make sure they are different enough that the pixel isn't grayscle, ensuring that the inside of the test is being picked up, rather than the outline of the test
             currMax = max(currRed, currGreen, currBlue)
             currMin = min(currRed, currGreen, currBlue)
@@ -92,5 +105,5 @@ func analyzePixels(_ image: UIImage, /* _ numList: inout [Int], */ _ box: testBo
     //rgbValues = "Average Red: \(red)\nAverage Green: \(green)\nAverage Blue: \(blue)\n"
     print("Average Red: \(red)\nAverage Green: \(green)\nAverage Blue: \(blue)")
     
-    return saturation
+    return pixelsDetected
 }

@@ -91,7 +91,7 @@ struct CameraView: View {
                 Spacer()
 
                 NavigationLink("Continue               ",
-                               destination: intermediateView(edges: edges, image: image),
+                               destination: intermediateView(rectangleStruct:testResults, edges: edges, image: image),
                                isActive: $readyToContinue)
                     .opacity(0)
                 Spacer()

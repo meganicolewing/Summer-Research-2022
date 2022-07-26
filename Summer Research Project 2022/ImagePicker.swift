@@ -54,20 +54,20 @@ struct ImagePicker: UIViewControllerRepresentable {
         let picker = UIImagePickerController()
         
         //overlay
-        let overlayView = UIImageView(image:UIImage(named: "overlay.jpg"))
-        let screenSize: CGRect = UIScreen.main.bounds
-        let screenHeight = screenSize.height
-        let screenWidth = screenSize.width
-        let position = CGPoint(x:screenWidth/2, y:screenHeight/2)
-        
-        overlayView.layer.position = position
+//        let overlayView = UIImageView(image:UIImage(named: "overlay.jpg"))
+//        let screenSize: CGRect = UIScreen.main.bounds
+//        let screenHeight = screenSize.height
+//        let screenWidth = screenSize.width
+//        let position = CGPoint(x:screenWidth/2, y:screenHeight/2)
+//
+//        overlayView.layer.position = position
         
         picker.sourceType = sourceType
         picker.delegate = context.coordinator
         
         //overlay
         if sourceType == .camera {
-            picker.cameraOverlayView = overlayView
+//            picker.cameraOverlayView = overlayView
         }
     
         return picker

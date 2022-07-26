@@ -20,7 +20,8 @@ struct intermediateView: View {
             Image(uiImage: edges)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
-                .padding().overlay(
+                .padding()
+                .overlay(
                     GeometryReader { geometry in
                         ForEach(0..<rectangleStruct.searchBoxes.count){ index in
                             if index % 2 == 0 {

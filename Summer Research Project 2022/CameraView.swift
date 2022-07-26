@@ -15,6 +15,7 @@ struct CameraView: View {
     //holds information on if the user selected photo library or camera
     @State private var sourceType: UIImagePickerController.SourceType = .camera
     //holds the image
+    @State private var rotatedImage: UIImage!
     @State private var image: UIImage!
     @State private var edges: UIImage!
     @State private var readyToContinue: Bool = false
@@ -75,8 +76,9 @@ struct CameraView: View {
                     
                 }).padding()
                 Button(action: {
-                    edges = DetectEdgesWrapper().detectFunction(image)
-                    testResults = getNewLimits(edges, image)
+                    rotatedImage = unrotateImage(image) //rotate(image, image.imageOrientation)
+                    edges = DetectEdgesWrapper().detectFunction(rotatedImage)
+                    testResults = getNewLimits(edges, rotatedImage)
                     if testResults.rectangles1Left == [] {
                         errorFound = true
                     }
@@ -111,7 +113,7 @@ struct CameraView: View {
                 Spacer()
 
                 NavigationLink("Continue               ",
-                               destination: intermediateView(rectangleStruct:testResults, edges: edges, image: image),
+                               destination: intermediateView(rectangleStruct:testResults, edges: edges, image: rotatedImage),
                                isActive: $readyToContinue)
                     .opacity(0)
                 NavigationLink("error",

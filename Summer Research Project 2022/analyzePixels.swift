@@ -9,13 +9,24 @@ import Foundation
 import SwiftUI
 import UIKit
 
-//averages RGB values across box in image, returns a double containing the average saturation value
+//averages RGB values across box in image, returns an int containing the average saturation value
 // box - testBox with the coordinates of the corners of a box to be analyzed in image
 //for more notes on the struct testBox, see "TestFinder.swift"
 func analyzePixels(_ image: UIImage, /* _ numList: inout [Int], */ _ box: testBox) -> [CGRect] {
     //acesses image data to process
     guard let cgImage = image.cgImage, let data = cgImage.dataProvider?.data, let bytes = CFDataGetBytePtr(data) else {
         fatalError("Couldn't access image data")
+    }
+    var xStart = box.xMin
+    var xEnd = box.xMax
+    var yStart = box.yMin
+    var yEnd = box.yMax
+    if box.xMax == -1
+    {
+        xStart = 0
+        xEnd = cgImage.width
+        yStart = 0
+        yEnd = cgImage.height
     }
     //used to hold the current value
     var currRed:Double = 0
@@ -39,8 +50,8 @@ func analyzePixels(_ image: UIImage, /* _ numList: inout [Int], */ _ box: testBo
     let bytesPerPixel = cgImage.bitsPerPixel / cgImage.bitsPerComponent
 
     //goes through each pixel of the image in the box and adds the RGB values to the appropriate variable
-    for y in box.yMin ..< box.yMax {
-        for x in box.xMin ..< box.xMax {
+    for y in yStart ..< yEnd {
+        for x in xStart ..< xEnd {
             let offset = (y * cgImage.bytesPerRow) + (x * bytesPerPixel)
             // find the current RGB values
             currRed = (Double(bytes[offset]))
@@ -60,13 +71,13 @@ func analyzePixels(_ image: UIImage, /* _ numList: inout [Int], */ _ box: testBo
             // finds the max and min RGB values, then checks them to make sure they are different enough that the pixel isn't grayscle, ensuring that the inside of the test is being picked up, rather than the outline of the test
             currMax = max(currRed, currGreen, currBlue)
             currMin = min(currRed, currGreen, currBlue)
-            if (currMax - currMin) > 5 {
+          //  if (currMax - currMin) > 50 {
                 // adds the values to the average if the the pixel is suitable
                 avgRed = (currRed + avgRed)
                 avgGreen = (currGreen + avgGreen)
                 avgBlue = (currBlue + avgBlue)
                 numPixels += 1
-            }
+           // }
         }
     }
     
@@ -100,6 +111,8 @@ func analyzePixels(_ image: UIImage, /* _ numList: inout [Int], */ _ box: testBo
     if cMax != 0 {
         saturation = (delta / cMax) * 100
     }
+    
+    let reducedSat = Int(saturation + 0.5)
     
     // Human-readable string for printig purposes
     //rgbValues = "Average Red: \(red)\nAverage Green: \(green)\nAverage Blue: \(blue)\n"

@@ -31,3 +31,6 @@ This file is an early test for finding the average red, green, and blue values w
 
 ## csv-test.playground.zip
 This file is an early test to read the contents of a CSV file into a Struct defined within the function itself. This was made with usage in the app's Past Test View in mind; however, it has not yet been implemented in the app yet because we are still working on writing these structs back into the CSV file. This can be downloaded and opened in an XCode Playground. 
+
+## equation-test.playground.zip
+This file is a test for finding the concentration of a sample while being given the RGB values of the sample, low and high concentration constants (one of each), and the RGB values corresponding to those constants. This code is depreciated as we have found out that the relationship between concentration and HSV/RGB is not linear, but hopefully we will be able to adapt parts of this code.

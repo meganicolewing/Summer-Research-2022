@@ -13,41 +13,57 @@ struct Manual: View {
         let screenHeight = screenSize.height
         let screenWidth = screenSize.width
         ZStack() {
-            Color("Main_Yellow")
+            Color("Turquoise")
                             .ignoresSafeArea()
             Image("white")
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 345.0, height: (screenHeight - 170))
                 .cornerRadius(/*@START_MENU_TOKEN@*/20.0/*@END_MENU_TOKEN@*/)
-                .position(x: screenWidth/2, y: (screenHeight/2 - 75))
+                .position(x: screenWidth/2, y: (screenHeight/2 - 25))
+            
+            Image("logo")
+                .cornerRadius(20)
+                .position(x: screenWidth/2, y: (screenHeight/2 - 360))
+            
             VStack {
+                
                 Spacer()
-                Text("Instructions")
+                Text("\n\n\n\nInstruction Manual")
                     .fontWeight(.bold).padding(.bottom).dynamicTypeSize(/*@START_MENU_TOKEN@*/.accessibility2/*@END_MENU_TOKEN@*/)
                 //Spacer()
-                Text("Welcome to the RGB Engineers App. ")
-                Text("To navigate this app, return to the Home")
-                Text("Page you entered on. To take a picture of a")
-                Text("test, navigate to the \"Analyze a Sample\"")
-                Text("screen. To view previous results, navigate to")
-                Text("the \"View Past Tests\" screen.")
+                Text("Welcome to the RGB Engineers App!\n")
+                
+                Text("How to properly take a photo")
+                    .fontWeight(.bold)
+                    .multilineTextAlignment(.leading)
+                Text("[Instructions]")
+                    .padding(.bottom)
+                
+                Text("How to set up phone stand")
+                    .fontWeight(.bold)
+                    .multilineTextAlignment(.leading)
+                Text("[Instructions]")
+                    .padding(.bottom)
+                
+                Text("How to interpret results")
+                    .fontWeight(.bold)
+                    .multilineTextAlignment(.leading)
+                Text("[Instructions]")
                     .padding(.bottom)
                 
                 NavigationLink {
                     ContentView()
                 } label: {
-                    Text("Home")
-                        .fontWeight(.medium)
-                        .foregroundColor(Color.white)
-                        .padding(.all)
-                        .background(Color("Main_Yellow"))
-                        .cornerRadius(20)
+                    Image("home button")
+                        .aspectRatio(contentMode: .fit)
                         .padding()
+                        .frame(width: 60.0, height: 60.0)
+                        .cornerRadius(/*@START_MENU_TOKEN@*/20.0/*@END_MENU_TOKEN@*/)
+                        .position(x: screenWidth/2, y: (screenHeight/2 - 145))
                 }
-                Spacer()
+                
             }
-        }.navigationBarTitle("")
-            .navigationBarHidden(true)
+        }.navigationBarHidden(true)
     }
 }
 

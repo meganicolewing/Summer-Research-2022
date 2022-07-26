@@ -32,17 +32,31 @@ struct CameraView: View {
     
     var body: some View {
         
+        let screenSize: CGRect = UIScreen.main.bounds
+        let screenHeight = screenSize.height
+        let screenWidth = screenSize.width
+        
         ZStack{
             Color("Turquoise")
                             .ignoresSafeArea()
+            
+            Image("white")
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 345.0, height: (screenHeight - 170))
+                .cornerRadius(/*@START_MENU_TOKEN@*/20.0/*@END_MENU_TOKEN@*/)
+                .position(x: screenWidth/2, y: (screenHeight/2 - 70))
+            
             VStack{
                 
                 Spacer()
-                
+
                 Image(uiImage: image ?? UIImage(named: "placeholder")!)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .padding()
+                    .position(x: screenWidth/2 - 22, y: (screenHeight/2 - 200))
+                    .frame(width: 345.0, height: (screenHeight/2))
+                
 //                    .opacity(imageUploaded ? 1:0)
                 
                 Button(action: {
@@ -95,6 +109,8 @@ struct CameraView: View {
                                isActive: $readyToContinue)
                     .opacity(0)
                 Spacer()
+                
+                //home button
                 NavigationLink{
                     ContentView()
                 }
@@ -104,6 +120,7 @@ struct CameraView: View {
                     .padding()
                     .frame(width: 60.0, height: 60.0)
                     .cornerRadius(/*@START_MENU_TOKEN@*/20.0/*@END_MENU_TOKEN@*/)
+                    .position(x: screenWidth/2, y: (screenHeight/2 - 355))
                 }
                 
 

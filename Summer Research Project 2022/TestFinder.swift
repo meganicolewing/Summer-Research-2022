@@ -16,6 +16,14 @@ struct testBox {
     var yMin:Int = -1
     var yMax:Int = -1
     var center:[Int] = [-1, -1]
+    init()
+    {
+        xMax = -1
+        xMin = -1
+        yMin = -1
+        yMax = -1
+        center = [-1,-1]
+    }
     // intiates a testBox using information collected about the bulb of a test
     // coords - coordinates of the edge of the bulb
     // radius - half the length of one side of the box
@@ -31,10 +39,11 @@ struct testBox {
         if left {
             center[0] = coords[0] + radius
         }
-        // if the bulb is on the right of the image, we subtract to move further into the image
+        //if the bulb is on the right of the image, we subtract the radius to find the center
         else {
             center[0] = coords[0] - radius
         }
+        // add and subtract 1/4 of the radius from the center to find the max and min
         xMin = center[0] - radiusFromCenter
         xMax = center[0] + radiusFromCenter
     }
@@ -220,18 +229,21 @@ func getNewLimits(_ edges: UIImage!, _ image:UIImage!) -> results {
     let squareRadius = Int(bigSquare/2)
     //print("square radius: \(squareRadius)")
     // creates testBox objects for each bulb
-    let test1LeftBox = testBox(coords: test1LeftCoordinates, radius: squareRadius, left: true)
-    let test1RightBox = testBox(coords: test1RightCoordinates, radius: squareRadius, left: false)
-    let test2LeftBox = testBox(coords: test2LeftCoordinates, radius: squareRadius, left: true)
-    let test2RightBox = testBox(coords: test2RightCoordinates, radius: squareRadius, left: false)
-    let test3LeftBox = testBox(coords: test3LeftCoordinates, radius: squareRadius, left: true)
-    let test3RightBox = testBox(coords: test3RightCoordinates, radius: squareRadius, left: false)
+    let test1LeftBox = testBox(coords: test1LeftCoordinates, radius: bulbRadius, left: true)
+    let test1RightBox = testBox(coords: test1RightCoordinates, radius: bulbRadius, left: false)
+    let test2LeftBox = testBox(coords: test2LeftCoordinates, radius: bulbRadius, left: true)
+    let test2RightBox = testBox(coords: test2RightCoordinates, radius: bulbRadius, left: false)
+    let test3LeftBox = testBox(coords: test3LeftCoordinates, radius: bulbRadius, left: true)
+    let test3RightBox = testBox(coords: test3RightCoordinates, radius: bulbRadius, left: false)
     // calls the analyzePixels function with the original image and each testBox and stores all the results in a results object to be returned
     var testResults = results()
     /*testResults.test1Left = analyzePixels(image, test1LeftBox)
     testResults.test1Right = analyzePixels(image, test1RightBox)
+    print("middle left")
     testResults.test2Left = analyzePixels(image, test2LeftBox)
+    print("middle right")
     testResults.test2Right = analyzePixels(image, test2RightBox)
+    print("bottom left")
     testResults.test3Left = analyzePixels(image, test3LeftBox)
     testResults.test3Right = analyzePixels(image, test3RightBox)*/
     

@@ -54,14 +54,11 @@ func analyzePixels(_ image: UIImage, /* _ numList: inout [Int], */ _ box: testBo
         for x in xStart ..< xEnd {
             let offset = (y * cgImage.bytesPerRow) + (x * bytesPerPixel)
             // find the current RGB values
-            currRed = (Double(bytes[offset]))
-            currBlue = (Double(bytes[offset + 2]))
+            currRed = (Double(bytes[offset + 2]))
+            currBlue = (Double(bytes[offset]))
             currGreen = (Double(bytes[offset + 1]))
             
-//            print("[" + String(x) + ", " + String(y) + "]: ")
-//            print("Red: ", currRed)
-//            print("Green: ", currGreen)
-//            print("Blue: ", currBlue)
+            print("[" + String(x) + ", " + String(y) + "]: \tRed: ", currRed, ", Green: ", currGreen, ", Blue: ", currBlue)
             
             //Converts x and y coordinates to UI coordinates
             

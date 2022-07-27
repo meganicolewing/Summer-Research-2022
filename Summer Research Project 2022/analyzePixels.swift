@@ -12,7 +12,7 @@ import UIKit
 //averages RGB values across box in image, returns an int containing the average saturation value
 // box - testBox with the coordinates of the corners of a box to be analyzed in image
 //for more notes on the struct testBox, see "TestFinder.swift"
-func analyzePixels(_ image: UIImage, /* _ numList: inout [Int], */ _ box: testBox) -> [CGRect] {
+func analyzePixels(_ image: UIImage, /* _ numList: inout [Int], */ _ box: testBox) -> Int {
     //acesses image data to process
     guard let cgImage = image.cgImage, let data = cgImage.dataProvider?.data, let bytes = CFDataGetBytePtr(data) else {
         fatalError("Couldn't access image data")
@@ -115,5 +115,5 @@ func analyzePixels(_ image: UIImage, /* _ numList: inout [Int], */ _ box: testBo
     //rgbValues = "Average Red: \(red)\nAverage Green: \(green)\nAverage Blue: \(blue)\n"
     print("Average Red: \(red)\nAverage Green: \(green)\nAverage Blue: \(blue)")
     
-    return pixelsDetected
+    return reducedSat
 }

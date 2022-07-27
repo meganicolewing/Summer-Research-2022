@@ -52,23 +52,19 @@ struct testBox {
 // holds saturation data about all six bulbs in a test
 class results {
     // test 1 is the bottom test, while test 3 is the top test
-   /* var test1Left:Double = -1
-    var test1Right:Double = -1
-    var test2Left:Double = -1
-    var test2Right:Double = -1
-    var test3Left:Double = -1
-    var test3Right:Double = -1*/
+    var test1Left = -1
+    var test1Right = -1
+    var test2Left = -1
+    var test2Right = -1
+    var test3Left = -1
+    var test3Right = -1
     
-    var rectangles1Left:[CGRect] = []
-    var rectangles1Right:[CGRect] = []
-    var rectangles2Left:[CGRect] = []
-    var rectangles2Right:[CGRect] = []
-    var rectangles3Left:[CGRect] = []
-    var rectangles3Right:[CGRect] = []
-    
-    var searchBoxes:[CGRect] = []
-    
-    var pixelsDetected:[CGRect] = []
+    var rectangles1Left:CGRect = CGRect()
+    var rectangles1Right:CGRect = CGRect()
+    var rectangles2Left:CGRect = CGRect()
+    var rectangles2Right:CGRect = CGRect()
+    var rectangles3Left:CGRect = CGRect()
+    var rectangles3Right:CGRect = CGRect()
 }
 
 // image - pointer to a UIImage, this should be an image that has been returned from an edge detector and contains only the edges of the test
@@ -270,7 +266,7 @@ func getNewLimits(_ edges: UIImage!, _ image:UIImage!) -> results {
     let test3RightBox = testBox(coords: test3RightCoordinates, radius: bulbRadius, left: false)
     // calls the analyzePixels function with the original image and each testBox and stores all the results in a results object to be returned
     var testResults = results()
-    /*testResults.test1Left = analyzePixels(image, test1LeftBox)
+    testResults.test1Left = analyzePixels(image, test1LeftBox)
     testResults.test1Right = analyzePixels(image, test1RightBox)
     print("middle left")
     testResults.test2Left = analyzePixels(image, test2LeftBox)
@@ -278,118 +274,40 @@ func getNewLimits(_ edges: UIImage!, _ image:UIImage!) -> results {
     testResults.test2Right = analyzePixels(image, test2RightBox)
     print("bottom left")
     testResults.test3Left = analyzePixels(image, test3LeftBox)
-    testResults.test3Right = analyzePixels(image, test3RightBox)*/
+    testResults.test3Right = analyzePixels(image, test3RightBox)
     
     // DRAWING RGB TEST BOXES //
     
-    testResults.rectangles1Left.append(contentsOf: analyzePixels(image, test1LeftBox))
-    testResults.rectangles1Right.append(contentsOf: analyzePixels(image, test1RightBox))
-    testResults.rectangles2Left.append(contentsOf: analyzePixels(image, test2LeftBox))
-    testResults.rectangles2Right.append(contentsOf: analyzePixels(image, test2RightBox))
-    testResults.rectangles3Left.append(contentsOf: analyzePixels(image, test3LeftBox))
-    testResults.rectangles3Right.append(contentsOf: analyzePixels(image, test3RightBox))
-    
-    // DRAWING PIXELS DETECTED //
-    
-    //TOP LEFT
-    testResults.pixelsDetected.append(CGRect(
-        x: Double(test1LeftCoordinates[0])/Double(cgImage.width),
-        y: Double(test1LeftCoordinates[1])/Double(cgImage.height),
-        width: 1/Double(cgImage.width),
-        height: 1/Double(cgImage.height)
-    ))
-    
-    //TOP RIGHT
-    testResults.pixelsDetected.append(CGRect(
-        x: (Double(test1RightCoordinates[0]))/Double(cgImage.width),
-        y: Double(test1RightCoordinates[1])/Double(cgImage.height),
-        width: 1/Double(cgImage.width),
-        height: 1/Double(cgImage.height)
-    ))
-    
-    //MIDDLE LEFT
-    testResults.pixelsDetected.append(CGRect(
-        x: (Double(test2LeftCoordinates[0]))/Double(cgImage.width),
-        y: Double(test2LeftCoordinates[1])/Double(cgImage.height),
-        width: 1/Double(cgImage.width),
-        height: 1/Double(cgImage.height)
-    ))
-    
-    //MIDDLE RIGHT
-    testResults.pixelsDetected.append(CGRect(
-        x: (Double(test2RightCoordinates[0]))/Double(cgImage.width),
-        y: Double(test2RightCoordinates[1])/Double(cgImage.height),
-        width: 1/Double(cgImage.width),
-        height: 1/Double(cgImage.height)
-    ))
-    
-    //BOTTOM LEFT
-    testResults.pixelsDetected.append(CGRect(
-        x: (Double(test3LeftCoordinates[0]))/Double(cgImage.width),
-        y: Double(test3LeftCoordinates[1])/Double(cgImage.height),
-        width: 1/Double(cgImage.width),
-        height: 1/Double(cgImage.height)
-    ))
-    
-    //BOTTOM RIGHT
-    testResults.pixelsDetected.append(CGRect(
-        x: (Double(test3RightCoordinates[0]))/Double(cgImage.width),
-        y: Double(test3RightCoordinates[1])/Double(cgImage.height),
-        width: 1/Double(cgImage.width),
-        height: 1/Double(cgImage.height)
-    ))
-    
-    // DRAWING SEARCH BOXES //
-    
-    let searchRadius = Double(test1LeftCoordinates[3]/2)
-    
-    //TOP LEFT
-    testResults.searchBoxes.append(CGRect(
-        x: Double(test1LeftCoordinates[0])/Double(cgImage.width),
-        y: (Double(test1LeftCoordinates[1]) - Double(searchRadius))/Double(cgImage.height),
-        width: Double(test1LeftCoordinates[2])/Double(cgImage.width),
-        height: Double(test1LeftCoordinates[3])/Double(cgImage.height)
-    ))
-    
-    //TOP RIGHT
-    testResults.searchBoxes.append(CGRect(
-        x: (Double(test1RightCoordinates[0]) - Double(test1LeftCoordinates[2]))/Double(cgImage.width),
-        y: (Double(test1RightCoordinates[1]) - Double(searchRadius))/Double(cgImage.height),
-        width: Double(test1LeftCoordinates[2])/Double(cgImage.width),
-        height: Double(test1LeftCoordinates[3])/Double(cgImage.height)
-    ))
-    
-    //MIDDLE LEFT
-    testResults.searchBoxes.append(CGRect(
-        x: (Double(test2LeftCoordinates[0]))/Double(cgImage.width),
-        y: (Double(test2LeftCoordinates[1]) - Double(searchRadius))/Double(cgImage.height),
-        width: Double(test1LeftCoordinates[2])/Double(cgImage.width),
-        height: Double(test1LeftCoordinates[3])/Double(cgImage.height)
-    ))
-    
-    //MIDDLE RIGHT
-    testResults.searchBoxes.append(CGRect(
-        x: (Double(test2RightCoordinates[0]) - Double(test1LeftCoordinates[2]))/Double(cgImage.width),
-        y: (Double(test2RightCoordinates[1]) - Double(searchRadius))/Double(cgImage.height),
-        width: Double(test1LeftCoordinates[2])/Double(cgImage.width),
-        height: Double(test1LeftCoordinates[3])/Double(cgImage.height)
-    ))
-    
-    //BOTTOM LEFT
-    testResults.searchBoxes.append(CGRect(
-        x: (Double(test3LeftCoordinates[0]))/Double(cgImage.width),
-        y: (Double(test3LeftCoordinates[1]) - Double(searchRadius))/Double(cgImage.height),
-        width: Double(test1LeftCoordinates[2])/Double(cgImage.width),
-        height: Double(test1LeftCoordinates[3])/Double(cgImage.height)
-    ))
-    
-    //BOTTOM RIGHT
-    testResults.searchBoxes.append(CGRect(
-        x: (Double(test3RightCoordinates[0]) - Double(test1LeftCoordinates[2]))/Double(cgImage.width),
-        y: (Double(test3RightCoordinates[1]) - Double(searchRadius))/Double(cgImage.height),
-        width: Double(test1LeftCoordinates[2])/Double(cgImage.width),
-        height: Double(test1LeftCoordinates[3])/Double(cgImage.height)
-    ))
+    testResults.rectangles1Left = CGRect(
+        x: (Double(test1LeftBox.xMin)/Double(cgImage.width)),
+        y: (Double(test1LeftBox.yMin)/Double(cgImage.height)),
+        width: (Double(test1LeftBox.xMax - test1LeftBox.xMin)/Double(cgImage.width)),
+        height: (Double(test1LeftBox.yMax - test1LeftBox.yMin)/Double(cgImage.height)))
+    testResults.rectangles1Right = CGRect(
+        x: (Double(test1RightBox.xMin)/Double(cgImage.width)),
+        y: (Double(test1RightBox.yMin)/Double(cgImage.height)),
+        width: (Double(test1RightBox.xMax - test1RightBox.xMin)/Double(cgImage.width)),
+        height: (Double(test1RightBox.yMax - test1RightBox.yMin)/Double(cgImage.height)))
+    testResults.rectangles2Left = CGRect(
+        x: (Double(test2LeftBox.xMin)/Double(cgImage.width)),
+        y: (Double(test2LeftBox.yMin)/Double(cgImage.height)),
+        width: (Double(test2LeftBox.xMax - test2LeftBox.xMin)/Double(cgImage.width)),
+        height: (Double(test2LeftBox.yMax - test2LeftBox.yMin)/Double(cgImage.height)))
+    testResults.rectangles2Right = CGRect(
+        x: (Double(test2RightBox.xMin)/Double(cgImage.width)),
+        y: (Double(test2RightBox.yMin)/Double(cgImage.height)),
+        width: (Double(test2RightBox.xMax - test2RightBox.xMin)/Double(cgImage.width)),
+        height: (Double(test2RightBox.yMax - test2RightBox.yMin)/Double(cgImage.height)))
+    testResults.rectangles3Left = CGRect(
+        x: (Double(test3LeftBox.xMin)/Double(cgImage.width)),
+        y: (Double(test3LeftBox.yMin)/Double(cgImage.height)),
+        width: (Double(test3LeftBox.xMax - test3LeftBox.xMin)/Double(cgImage.width)),
+        height: (Double(test3LeftBox.yMax - test3LeftBox.yMin)/Double(cgImage.height)))
+    testResults.rectangles3Right = CGRect(
+        x: (Double(test3RightBox.xMin)/Double(cgImage.width)),
+        y: (Double(test3RightBox.yMin)/Double(cgImage.height)),
+        width: (Double(test3RightBox.xMax - test3RightBox.xMin)/Double(cgImage.width)),
+        height: (Double(test3RightBox.yMax - test3RightBox.yMin)/Double(cgImage.height)))
 
     return testResults
 }

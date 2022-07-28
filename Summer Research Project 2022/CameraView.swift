@@ -77,7 +77,7 @@ struct CameraView: View {
                     rotatedImage = unrotateImage(image) //rotate(image, image.imageOrientation)
                     edges = DetectEdgesWrapper().detectFunction(rotatedImage)
                     testResults = getNewLimits(edges, rotatedImage)
-                    if testResults.rectangles1Left == [] {
+                    if testResults.test1Left == -1 {
                         errorFound = true
                     }
                     else {

@@ -23,9 +23,8 @@ struct ContentView: View {
                             .ignoresSafeArea()
             Image("white")
                 .aspectRatio(contentMode: .fit)
-                .frame(width: 345.0, height: (screenHeight - 170))
+                .frame(width: screenWidth * 7/8, height: (screenHeight * 4/5))
                 .cornerRadius(/*@START_MENU_TOKEN@*/20.0/*@END_MENU_TOKEN@*/)
-                .position(x: screenWidth/2, y: (screenHeight/2 - 25))
             
             VStack {
                 
@@ -80,7 +79,7 @@ struct ContentView: View {
         }
         
         }.navigationBarHidden(true)
-
+            .accentColor(.black)
         
     }
 }

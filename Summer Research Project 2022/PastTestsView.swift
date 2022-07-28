@@ -79,12 +79,12 @@ struct PastTestsView: View {
                 .padding()
                 .frame(width: 60.0, height: 60.0)
                 .cornerRadius(/*@START_MENU_TOKEN@*/20.0/*@END_MENU_TOKEN@*/)
-                .position(x: screenWidth/2, y: (screenHeight/2 + 325))
+                .position(x: screenWidth/2, y: (screenHeight * 7/8))
             }
             
                 
         
-        }
+        }.accentColor(.black)
     }
 }
 

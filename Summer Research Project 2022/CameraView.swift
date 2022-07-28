@@ -44,18 +44,20 @@ struct CameraView: View {
             
             Image("white")
                 .aspectRatio(contentMode: .fit)
-                .frame(width: 345.0, height: (screenHeight - 170))
+                .frame(width: screenWidth * 7/8, height: (screenHeight * 4/5))
                 .cornerRadius(/*@START_MENU_TOKEN@*/20.0/*@END_MENU_TOKEN@*/)
             
             VStack{
-                
+                Rectangle()
+                    .frame(width: screenWidth, height: screenHeight/16)
+                    .opacity(0)
                 Spacer()
 
                 Image(uiImage: image ?? UIImage(named: "placeholder")!)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .padding()
-                    .frame(width: 345.0, height: (screenHeight/2))
+                    .frame(width: screenWidth * 7/8, height: (screenHeight/2))
                 
 //                    .opacity(imageUploaded ? 1:0)
                 
@@ -77,7 +79,7 @@ struct CameraView: View {
                     rotatedImage = unrotateImage(image) //rotate(image, image.imageOrientation)
                     edges = DetectEdgesWrapper().detectFunction(rotatedImage)
                     testResults = getNewLimits(edges, rotatedImage)
-                    if testResults.rectangles1Left == [] {
+                    if testResults.test1Left == -1 {
                         errorFound = true
                     }
                     else {
@@ -114,10 +116,7 @@ struct CameraView: View {
                                destination: intermediateView(rectangleStruct:testResults, edges: edges, image: rotatedImage),
                                isActive: $readyToContinue)
                     .opacity(0)
-                NavigationLink("error",
-                               destination: ErrorView(),
-                               isActive: $errorFound)
-                .opacity(0)
+
                 Spacer()
                 
                 //home button
@@ -130,7 +129,7 @@ struct CameraView: View {
                     .padding()
                     .frame(width: 60.0, height: 60.0)
                     .cornerRadius(/*@START_MENU_TOKEN@*/20.0/*@END_MENU_TOKEN@*/)
-                    .position(x: screenWidth/2, y: (screenHeight/2 - 355))
+                    .position(x: screenWidth/2, y: (screenHeight/32))
                 }
                 
 
@@ -141,8 +140,8 @@ struct CameraView: View {
         //used to display either the photo library or the camera
         .sheet(isPresented: $showImagePicker) {
             ImagePicker(image: self.$image, isShown: self.$showImagePicker, sourceType: self.sourceType)
-        }
-        }
+            }
+        }.accentColor(.black)
     }
 }
 

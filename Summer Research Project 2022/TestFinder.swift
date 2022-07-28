@@ -30,7 +30,7 @@ struct testBox {
     // left - boolean determining if the box is on the right or left of the image - helps ensure xMin and xMax are appropriately assigned
     init(coords: [Int], radius: Int, left: Bool) {
         // y-coordinates go the radius up and down from the detected coordinate
-        let radiusFromCenter = Int(radius/25)
+        let radiusFromCenter = Int(radius/7)
         print(radiusFromCenter)
         center[1] = coords[1]
         yMin = coords[1] - radiusFromCenter
@@ -249,7 +249,7 @@ func getNewLimits(_ edges: UIImage!, _ image:UIImage!) -> results {
     //print("xDist : \(xDistance)\nyDist: \(yDistance)")
     //print("bulbDistance: \(bulbDistance)")
     //uses the dimensions of the tests to find how long an individual bulb is
-    let bigSquare = bulbDistance * 2/5
+    let bigSquare = bulbDistance * 1/3
     //print("bigSquare : \(bigSquare)")
     // finds a quarter of the length of a bulb. used to find a square within each bulb by going in this distance from each side
     let bulbRadius = Int(bigSquare/2)

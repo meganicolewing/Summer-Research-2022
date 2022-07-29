@@ -31,7 +31,7 @@ struct ContentView: View {
                 Image("logo")
                     .cornerRadius(/*@START_MENU_TOKEN@*/20.0/*@END_MENU_TOKEN@*/)
                 
-                Text("Point of Care Diagnostics")
+                Text("Point of Care\n Diagnostics")
                     .fontWeight(.bold).padding(.bottom).dynamicTypeSize(/*@START_MENU_TOKEN@*/.accessibility2/*@END_MENU_TOKEN@*/)
 
                 Spacer()

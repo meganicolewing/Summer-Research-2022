@@ -116,6 +116,10 @@ struct CameraView: View {
                                destination: intermediateView(rectangleStruct:testResults, edges: edges, image: rotatedImage),
                                isActive: $readyToContinue)
                     .opacity(0)
+                NavigationLink("error",
+                               destination: ErrorView(),
+                               isActive: $errorFound)
+                .opacity(0)
 
                 Spacer()
                 

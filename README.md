@@ -20,6 +20,8 @@ We were unable to add OpenCV directly to the GitHub, as the amount of files need
 10. To the right, click on the empty space and type **arm64** and press **Enter**. Without doing this, an error reading `building for iOS Simulator, but linking in object file built for iOS, for architecture arm64` would appear whenever you attempted to build this app. 
 11. To test, run the app. If everything was done correctly, it should say **Build Succeeded**. If not, it will say **Build Failed**, and may display an error message. If that occurs, you may have to re-do some of the steps outlined here, or there may be another issue.
 
+When committing and pushing changes to the repository, delete OpenCV from the project and drag it back in after.
+
 ## Camera-Test
 This folder contains an earlier test for opening the camera and taking pictures within an app utilizing Swift. 
 

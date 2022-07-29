@@ -39,4 +39,5 @@ This file is a test for finding the concentration of a sample while being given 
 
 ## Useful Resources
 Intergrating OpenCV with Swift: https://www.youtube.com/watch?v=pU_GyV5CIzA&t=1s
+Adding Camera and Photo Picker to App: https://www.youtube.com/watch?v=Y-65T0YBOm4
 

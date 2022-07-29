@@ -36,3 +36,7 @@ This file is an early test to read the contents of a CSV file into a Struct defi
 
 ## equation-test.playground.zip
 This file is a test for finding the concentration of a sample while being given the RGB values of the sample, low and high concentration constants (one of each), and the RGB values corresponding to those constants. This code is depreciated as we have found out that the relationship between concentration and HSV/RGB is not linear, but hopefully we will be able to adapt parts of this code.
+
+## Useful Resources
+Intergrating OpenCV with Swift: https://www.youtube.com/watch?v=pU_GyV5CIzA&t=1s
+
